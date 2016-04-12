@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    public class Class1
+    public class GameSummary
     {
     }
 }
