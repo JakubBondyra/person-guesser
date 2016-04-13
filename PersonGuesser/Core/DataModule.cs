@@ -6,33 +6,53 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    public class DataModule : IDecisive
+    public enum GameState
+    {
+        Initialized, InProgress, Guessing, Finished    
+    }
+
+    public partial class DataModule : IDecisive
     {
         private GameData _gameData;
+        private GameState _gameState;
+        private Question _currentQuestion = null;
+        public Person GuessedPerson = null;
 
         public DataModule(GameData gameData)
         {
             _gameData = gameData;
+            _gameState = GameState.Initialized;
         }
 
         public void ProcessAnswer(AnswerType type)
         {
-            throw new NotImplementedException();
+            if (_currentQuestion == null || _gameState == GameState.Initialized)
+            {
+                throw new Exception("UI error - processing answer with no questions asked");
+            }
+            if (_gameState == GameState.InProgress)
+            {
+                _currentQuestion.UserAnswer = type;
+                _gameData.QuestionSet.Add(_currentQuestion);
+                _currentQuestion = null;
+            }
         }
 
         public Step GetStep()
         {
-            throw new NotImplementedException();
+            return computeNextStep();
         }
 
         public void EndGame()
         {
-            throw new NotImplementedException();
+            _gameState = GameState.Finished;
         }
 
         public GameSummary GetSummary()
         {
-            throw new NotImplementedException();
+            updatePersonAnswers(GuessedPerson ?? (_gameData.PeopleSet.Count > 0 ?
+                _gameData.PeopleSet.ElementAt(0) : null));
+            return new GameSummary(_gameData);
         }
     }
 }

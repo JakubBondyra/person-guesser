@@ -8,5 +8,10 @@ namespace Core
 {
     public class GameSummary
     {
+        public Question[] Entries;
+        public GameSummary(GameData gameData)
+        {
+            Entries = gameData.QuestionSet.ToArray();
+        }
     }
 }

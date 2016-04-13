@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,14 +9,21 @@ namespace Core
 {
     public class GameData
     {
-        public IEnumerable<Person> PeopleSet;
-        public IEnumerable<Question> QuestionSet;
+        public ICollection<Person> PeopleSet;
+        public ICollection<Question> QuestionSet;
+
+        public GameData()
+        {
+            PeopleSet = new Collection<Person>();
+            QuestionSet = new Collection<Question>();
+        }
     }
 
     public class Question
     {
         public string QuestionText;
-        public AnswerType CorrectAnswer;
+        public AnswerType PersonAnswer;
+        public AnswerType UserAnswer;
     }
 
     public class Person

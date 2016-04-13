@@ -8,39 +8,45 @@ namespace Core
 {
     public class InteractionModule : IInteraction
     {
+        private DataModule _dataModule;
+
+        public InteractionModule()
+        {
+        }
+
         public void StartGame()
         {
-            throw new NotImplementedException();
+            _dataModule = new DataModule( new GameData() );
         }
 
         public Step GetStep()
         {
-            throw new NotImplementedException();
+            return _dataModule.GetStep();
         }
 
         public void SaveAnswer(AnswerType answer)
         {
-            throw new NotImplementedException();
+            _dataModule.ProcessAnswer(answer);
         }
 
-        public void GetSummary()
+        public GameSummary GetSummary()
         {
-            throw new NotImplementedException();
+            return _dataModule.GetSummary();
         }
 
         public void EndGame()
         {
-            throw new NotImplementedException();
+            _dataModule.EndGame();
         }
 
         public void AddNewQuestion(string text)
         {
-            throw new NotImplementedException();
+            UpdatingModule.Instance.AddNewQuestion(text);
         }
 
         public void AddNewPerson(string name)
         {
-            throw new NotImplementedException();
+            UpdatingModule.Instance.AddNewPerson(name);
         }
     }
 }

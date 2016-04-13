@@ -12,17 +12,17 @@ namespace Core
 
         public static UpdatingModule Instance => _instance ?? (_instance = new UpdatingModule());
 
-        public static void UpdateStructures(GameData data)
+        public void UpdateStructures(GameData data)
         {
             throw new NotImplementedException();
         }
 
-        public static void AddNewQuestion(string text)
+        public void AddNewQuestion(string text)
         {
             throw new NotImplementedException();
         }
 
-        public static void AddNewPerson(string name)
+        public void AddNewPerson(string name)
         {
             throw new NotImplementedException();
         }

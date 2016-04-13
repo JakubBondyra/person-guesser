@@ -11,7 +11,7 @@ namespace Core
         void StartGame();
         Step GetStep();
         void SaveAnswer(AnswerType answer);
-        void GetSummary();
+        GameSummary GetSummary();
         void EndGame();
         void AddNewQuestion(string text);
         void AddNewPerson(string name);
