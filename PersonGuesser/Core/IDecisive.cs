@@ -9,7 +9,7 @@ namespace Core
 {
     interface IDecisive
     {
-        void ProcessAnswer(AnswerType type);
+        void ProcessAnswer(AnswerType answer);
         Step GetStep();
         void EndGame();
         GameSummary GetSummary();

@@ -34,4 +34,9 @@ namespace Core
             GuessText = guessText;
         }
     }
+
+    public class VictoryStep : Step
+    {
+        
+    }
 }

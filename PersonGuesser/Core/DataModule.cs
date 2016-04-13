@@ -24,7 +24,7 @@ namespace Core
             _gameState = GameState.Initialized;
         }
 
-        public void ProcessAnswer(AnswerType type)
+        public void ProcessAnswer(AnswerType answer)
         {
             if (_currentQuestion == null || _gameState == GameState.Initialized)
             {
@@ -32,9 +32,34 @@ namespace Core
             }
             if (_gameState == GameState.InProgress)
             {
-                _currentQuestion.UserAnswer = type;
+                _currentQuestion.UserAnswer = answer;
                 _gameData.QuestionSet.Add(_currentQuestion);
                 _currentQuestion = null;
+                _gameData.QuestionsAsked++;
+                foreach (var person in _gameData.PeopleSet)
+                {
+                    if (person.CurrentAnswer == AnswerType.Unknown || answer == AnswerType.Unknown)
+                        continue;
+                    if (person.CurrentAnswer == answer)
+                    {
+                        person.CorrectAnswers++;
+                    }
+                }
+            }
+            else if (_gameState == GameState.Guessing)
+            {
+                if (answer == AnswerType.No)
+                {
+                    _gameData.QuestionsAsked ++;
+                }
+                else if (answer == AnswerType.Yes)
+                {
+                    _gameState = GameState.Finished;
+                }
+                else
+                {
+                    throw new Exception("Fuck you");
+                }
             }
         }
 

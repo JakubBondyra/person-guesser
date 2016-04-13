@@ -9,6 +9,7 @@ namespace Core
 {
     public class GameData
     {
+        public int QuestionsAsked = 0;
         public ICollection<Person> PeopleSet;
         public ICollection<Question> QuestionSet;
 
@@ -31,6 +32,7 @@ namespace Core
         public string Name;
         public int CorrectAnswers;
         public int OccurenceCount;
+        public AnswerType CurrentAnswer;
     }
 
     public enum AnswerType
