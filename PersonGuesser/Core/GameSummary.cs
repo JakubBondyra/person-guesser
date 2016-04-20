@@ -9,9 +9,11 @@ namespace Core
     public class GameSummary
     {
         public Question[] Entries;
-        public GameSummary(GameData gameData)
+        public Person GuessedPerson;
+        public GameSummary(GameData gameData, Person guessedPerson)
         {
             Entries = gameData.QuestionSet.ToArray();
+            GuessedPerson = guessedPerson;
         }
     }
 }

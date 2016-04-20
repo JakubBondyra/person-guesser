@@ -46,7 +46,7 @@ namespace Core
 
         public void AddNewPerson(string name)
         {
-            UpdatingModule.Instance.AddNewPerson(name);
+            UpdatingModule.Instance.AddNewPerson(name, _dataModule.GetSummary());
         }
     }
 }

@@ -77,7 +77,7 @@ namespace Core
         {
             updatePersonAnswers(GuessedPerson ?? (_gameData.PeopleSet.Count > 0 ?
                 _gameData.PeopleSet.ElementAt(0) : null));
-            return new GameSummary(_gameData);
+            return new GameSummary(_gameData, GuessedPerson);
         }
     }
 }
