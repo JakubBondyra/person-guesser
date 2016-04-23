@@ -41,7 +41,7 @@ namespace Core
                 foreach (var person in personsToAdd)
                 {
                     var a = answers.Single(x => x.PersonId == person.PersonId);
-                    var dataAnswer = calculateFromEntity(a.YesCount, a.NoCount);
+                    var dataAnswer = calculateDominatingAnswer(a.YesCount, a.NoCount);
                     if (dataAnswer == answer)
                     {
                         //unforgiveable question, add to set only in this case

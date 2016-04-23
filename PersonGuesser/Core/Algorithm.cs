@@ -75,7 +75,21 @@ namespace Core
         {
             //operate on database - get proper question in PeopleSet and QuestionSet context
             //update peopleset currentanswer field
-            throw new NotImplementedException();
+            var questions = _context.GetQuestions(x => _gameData.QuestionSet.All(y => y.QuestionId != x.QuestionId));
+            var bestQuestion = getBestPartition(questions);
+
+            if (bestQuestion == null)
+                throw new Exception("partitioning error");
+
+            var gameQuestion = new GameQuestion()
+            {
+                QuestionId = bestQuestion.QuestionId,
+                PersonAnswer = AnswerType.Unknown,
+                QuestionText = bestQuestion.Text,
+                UserAnswer = AnswerType.Unknown
+            };
+            _gameData.QuestionSet.Add(gameQuestion);
+            return gameQuestion;
         }
 
         private GameQuestion retrieveFirstQuestion()
