@@ -1,8 +1,11 @@
-﻿namespace Core.Interfaces
+﻿using Core.Data;
+using DataAccess;
+
+namespace Core.Interfaces
 {
-    internal interface IInteraction
+    public interface IInteraction
     {
-        void StartGame();
+        void StartGame(UnitOfWork u);
         Step GetStep();
         void SaveAnswer(AnswerType answer);
         GameSummary GetSummary();

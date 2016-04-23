@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Core.Data;
 using DataAccess.Entities;
 
-namespace Core
+namespace Core.Modules
 {
     public partial class DataModule
     {
@@ -75,7 +73,7 @@ namespace Core
         {
             //operate on database - get proper question in PeopleSet and QuestionSet context
             //update peopleset currentanswer field
-            var questions = _context.GetQuestions(x => _gameData.QuestionSet.All(y => y.QuestionId != x.QuestionId));
+            var questions = _context.GetQuestions(x => Enumerable.All<GameQuestion>(_gameData.QuestionSet, y => y.QuestionId != x.QuestionId));
             var bestQuestion = getBestPartition(questions);
 
             if (bestQuestion == null)
@@ -118,8 +116,7 @@ namespace Core
             var bestSum = int.MinValue;
             foreach (var question in questions)
             {
-                var preciseAnswers = _context.GetAnswers(x => x.QuestionId == question.QuestionId)
-                    .Select(x=> x.YesCount > x.NoCount ? 1 : -1).Sum();
+                var preciseAnswers = Enumerable.Select<Answer, int>(_context.GetAnswers(x => x.QuestionId == question.QuestionId), x=> x.YesCount > x.NoCount ? 1 : -1).Sum();
                 if (Math.Abs(preciseAnswers) < Math.Abs(bestSum))
                 {
                     bestSum = preciseAnswers;
@@ -154,7 +151,7 @@ namespace Core
             if (_gameData.QuestionsAsked < 5)
                 return false;
 
-            var correctCounts = _gameData.PeopleSet.Select(x => (double)x.CorrectAnswers/(double)x.OccurenceCount);
+            var correctCounts = Enumerable.Select<GamePerson, double>(_gameData.PeopleSet, x => (double)x.CorrectAnswers/(double)x.OccurenceCount);
             var max = correctCounts.Max();
             if (_gameData.QuestionsAsked < 10 && max > 0.89f)
                 return true;
@@ -174,7 +171,7 @@ namespace Core
             var answers = _context.GetAnswers(x => x.PersonId == gamePerson.PersonId);
             foreach (var question in _gameData.QuestionSet)
             {
-                var answer = answers.Single(x => x.QuestionId == question.QuestionId);
+                var answer = Enumerable.Single<Answer>(answers, x => x.QuestionId == question.QuestionId);
                 question.PersonAnswer = calculateDominatingAnswer(answer.YesCount, answer.NoCount);
             }
         }

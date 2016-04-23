@@ -1,4 +1,6 @@
 ﻿using Core.Data;
+using Core.Interfaces;
+using DataAccess;
 
 namespace Core.Modules
 {
@@ -10,9 +12,9 @@ namespace Core.Modules
         {
         }
 
-        public void StartGame()
+        public void StartGame(UnitOfWork context)
         {
-            _dataModule = new Modules.DataModule( new GameData() );
+            _dataModule = new Modules.DataModule( new GameData(), context );
         }
 
         public Step GetStep()

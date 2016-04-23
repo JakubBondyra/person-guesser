@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Core.Data;
+using Core.Interfaces;
 using DataAccess;
 
-namespace Core
+namespace Core.Modules
 {
     public enum GameState
     {

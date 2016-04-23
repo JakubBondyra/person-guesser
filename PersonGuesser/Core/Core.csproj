@@ -49,16 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataModule.cs" />
-    <Compile Include="Algorithm.cs" />
-    <Compile Include="GameData.cs" />
-    <Compile Include="InteractionModule.cs" />
-    <Compile Include="GameSummary.cs" />
-    <Compile Include="IDecisive.cs" />
-    <Compile Include="IInteraction.cs" />
+    <Compile Include="Modules\DataModule.cs" />
+    <Compile Include="Modules\Algorithm.cs" />
+    <Compile Include="Data\GameData.cs" />
+    <Compile Include="Modules\InteractionModule.cs" />
+    <Compile Include="Data\GameSummary.cs" />
+    <Compile Include="Interfaces\IDecisive.cs" />
+    <Compile Include="Interfaces\IInteraction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Step.cs" />
-    <Compile Include="UpdatingModule.cs" />
+    <Compile Include="Data\Step.cs" />
+    <Compile Include="Modules\UpdatingModule.cs" />
+    <Compile Include="UserInterfaces\ConsoleInterface\ConsolePlugin.cs" />
+    <Compile Include="UserInterfaces\IGamePlugin.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
@@ -70,6 +72,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

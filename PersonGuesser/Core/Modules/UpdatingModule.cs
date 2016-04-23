@@ -1,8 +1,9 @@
 ﻿using System.Linq;
+using Core.Data;
 using DataAccess;
 using DataAccess.Entities;
 
-namespace Core.Data
+namespace Core.Modules
 {
     public class UpdatingModule
     {

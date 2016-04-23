@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{F3C0FA59-EFB8-4A5A-B10A-D79B42144C48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pgConsole", "pgConsole\pgConsole.csproj", "{7FA1061F-30B2-4C54-BE2D-F5DD7A6593C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F3C0FA59-EFB8-4A5A-B10A-D79B42144C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3C0FA59-EFB8-4A5A-B10A-D79B42144C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3C0FA59-EFB8-4A5A-B10A-D79B42144C48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FA1061F-30B2-4C54-BE2D-F5DD7A6593C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FA1061F-30B2-4C54-BE2D-F5DD7A6593C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FA1061F-30B2-4C54-BE2D-F5DD7A6593C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FA1061F-30B2-4C54-BE2D-F5DD7A6593C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

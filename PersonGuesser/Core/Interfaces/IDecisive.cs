@@ -1,4 +1,6 @@
-﻿namespace Core.Interfaces
+﻿using Core.Data;
+
+namespace Core.Interfaces
 {
     internal interface IDecisive
     {
