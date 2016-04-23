@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Core
+﻿namespace Core.Interfaces
 {
-    interface IInteraction
+    internal interface IInteraction
     {
         void StartGame();
         Step GetStep();

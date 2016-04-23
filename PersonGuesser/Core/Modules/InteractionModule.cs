@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.Data;
 
-namespace Core
+namespace Core.Modules
 {
     public class InteractionModule : IInteraction
     {
-        private DataModule _dataModule;
+        private Modules.DataModule _dataModule;
 
         public InteractionModule()
         {
@@ -16,7 +12,7 @@ namespace Core
 
         public void StartGame()
         {
-            _dataModule = new DataModule( new GameData() );
+            _dataModule = new Modules.DataModule( new GameData() );
         }
 
         public Step GetStep()
