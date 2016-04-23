@@ -8,12 +8,12 @@ namespace Core
 {
     public class GameSummary
     {
-        public Question[] Entries;
-        public Person GuessedPerson;
-        public GameSummary(GameData gameData, Person guessedPerson)
+        public GameQuestion[] Entries;
+        public GamePerson GuessedGamePerson;
+        public GameSummary(GameData gameData, GamePerson guessedGamePerson)
         {
             Entries = gameData.QuestionSet.ToArray();
-            GuessedPerson = guessedPerson;
+            GuessedGamePerson = guessedGamePerson;
         }
     }
 }

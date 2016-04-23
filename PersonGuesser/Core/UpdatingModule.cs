@@ -19,7 +19,7 @@ namespace Core
         {
             using (var context = new PgContext())
             {
-                context.Persons.Single(x => x.Name == data.GuessedPerson.Name).Count++;
+                context.Persons.Single(x => x.Name == data.GuessedGamePerson.Name).Count++;
                 context.SaveChanges();
                 foreach (var question in data.Entries)
                 {
