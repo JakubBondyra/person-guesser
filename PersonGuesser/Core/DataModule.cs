@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccess;
 
 namespace Core
 {
@@ -16,12 +17,14 @@ namespace Core
         private GameData _gameData;
         private GameState _gameState;
         private Question _currentQuestion = null;
+        private UnitOfWork _context;
         public Person GuessedPerson = null;
 
-        public DataModule(GameData gameData)
+        public DataModule(GameData gameData, UnitOfWork context)
         {
             _gameData = gameData;
             _gameState = GameState.Initialized;
+            _context = context;
         }
 
         public void ProcessAnswer(AnswerType answer)
