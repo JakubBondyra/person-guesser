@@ -41,9 +41,7 @@ namespace Core
                 foreach (var person in personsToAdd)
                 {
                     var a = answers.Single(x => x.PersonId == person.PersonId);
-                    AnswerType dataAnswer = a.YesCount > a.NoCount ? AnswerType.Yes : AnswerType.No;
-                    if (a.YesCount == a.NoCount && a.YesCount == 0)
-                        dataAnswer = AnswerType.Unknown;
+                    var dataAnswer = calculateFromEntity(a.YesCount, a.NoCount);
                     if (dataAnswer == answer)
                     {
                         //unforgiveable question, add to set only in this case
@@ -104,8 +102,9 @@ namespace Core
 
         public GameSummary GetSummary()
         {
-            updatePersonAnswers(GuessedGamePerson ?? (_gameData.PeopleSet.Count > 0 ?
-                _gameData.PeopleSet.ElementAt(0) : null));
+            if (GuessedGamePerson == null)
+                throw new Exception("Error in GetSummary");
+            updatePersonAnswers(GuessedGamePerson);
             return new GameSummary(_gameData, GuessedGamePerson);
         }
     }

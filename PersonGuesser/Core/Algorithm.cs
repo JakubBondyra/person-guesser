@@ -117,20 +117,60 @@ namespace Core
 
         private Tuple<GamePerson,string> retrieveGuessingQuestion()
         {
-            //take GamePerson and question for it
-            throw new NotImplementedException();
+            GamePerson bestMatch = null;
+            double maxCoeff = double.MinValue;
+            foreach (var person in _gameData.PeopleSet)
+            {
+                double coeff = person.CorrectAnswers/(double)_gameData.QuestionsAsked;
+                if (coeff > maxCoeff)
+                {
+                    bestMatch = person;
+                    maxCoeff = coeff;
+                }
+            }
+            if (bestMatch == null)
+                throw new Exception("Something wrong in getting guessing question");
+
+            return new Tuple<GamePerson, string>(bestMatch, $"Zgadywanie: czy to {bestMatch.Name}?");
         }
 
         private bool canGuess(ICollection<GamePerson> peopleSet)
         {
             //if one of persons is very distinguishable from the others return true
-            throw new NotImplementedException();
+            if (_gameData.QuestionsAsked < 5)
+                return false;
+
+            var correctCounts = _gameData.PeopleSet.Select(x => (double)x.CorrectAnswers/(double)x.OccurenceCount);
+            var max = correctCounts.Max();
+            if (_gameData.QuestionsAsked < 10 && max > 0.89f)
+                return true;
+            else if (_gameData.QuestionsAsked < 20 && max > 0.79f)
+                return true;
+            else if (_gameData.QuestionsAsked < 30 && max > 0.74f)
+                return true;
+            else if (_gameData.QuestionsAsked >= 30 && max > 0.72f)
+                return true;
+
+            return false;
         }
 
         private void updatePersonAnswers(GamePerson gamePerson)
         {
             //operate on database, take answers for this GamePerson and add them to QuestionSet
-            throw new NotImplementedException();
+            var answers = _context.GetAnswers(x => x.PersonId == gamePerson.PersonId);
+            foreach (var question in _gameData.QuestionSet)
+            {
+                var answer = answers.Single(x => x.QuestionId == question.QuestionId);
+                question.PersonAnswer = calculateDominatingAnswer(answer.YesCount, answer.NoCount);
+            }
+        }
+
+        private static AnswerType calculateDominatingAnswer(int yesCount, int noCount)
+        {
+            AnswerType dataAnswer = yesCount > noCount ? AnswerType.Yes : AnswerType.No;
+            if (yesCount == noCount && yesCount == 0)
+                dataAnswer = AnswerType.Unknown;
+            return dataAnswer;
         }
     }
 }
