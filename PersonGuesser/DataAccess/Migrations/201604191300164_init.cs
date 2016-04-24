@@ -27,7 +27,7 @@ namespace DataAccess.Migrations
                 c => new
                     {
                         PersonId = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
+                        Name = c.String(unicode: true),
                         Count = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.PersonId);
@@ -37,7 +37,7 @@ namespace DataAccess.Migrations
                 c => new
                     {
                         QuestionId = c.Int(nullable: false, identity: true),
-                        Text = c.String(),
+                        Text = c.String(unicode: true),
                         Unforgiveable = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.QuestionId);

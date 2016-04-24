@@ -15,7 +15,7 @@ namespace Core.Modules
     {
         private GameData _gameData;
         private GameState _gameState;
-        private GameQuestion _currentGameQuestion = null;
+        private GameQuestion _currentGameQuestion;
         private UnitOfWork _context;
         public GamePerson GuessedGamePerson = null;
 
@@ -23,12 +23,14 @@ namespace Core.Modules
         {
             _gameData = gameData;
             _gameState = GameState.Initialized;
+            _currentGameQuestion = null;
             _context = context;
+            GuessedGamePerson = null;
         }
 
         public void ProcessAnswer(AnswerType answer)
         {
-            if (_currentGameQuestion == null || _gameState == GameState.Initialized)
+            if (_gameState == GameState.Initialized)
             {
                 throw new Exception("UI error - processing answer with no questions asked");
             }
@@ -37,6 +39,10 @@ namespace Core.Modules
                 //there was first question, now its time to fill it
                 var answers = _context.GetAnswers(x => x.QuestionId == _currentGameQuestion.QuestionId);
                 var personsToAdd = _context.GetPersons(x => answers.Any(y => y.PersonId == x.PersonId));
+                _currentGameQuestion.UserAnswer = answer;
+                _gameData.QuestionSet.Add(_currentGameQuestion);
+                _currentGameQuestion = null;
+                _gameData.QuestionsAsked++;
                 foreach (var person in personsToAdd)
                 {
                     var a = answers.Single(x => x.PersonId == person.PersonId);

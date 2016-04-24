@@ -73,8 +73,7 @@ namespace Core.Modules
         {
             //operate on database - get proper question in PeopleSet and QuestionSet context
             //update peopleset currentanswer field
-            var questions = _context.GetQuestions(x => Enumerable.All<GameQuestion>(_gameData.QuestionSet, y => y.QuestionId != x.QuestionId));
-            var bestQuestion = getBestPartition(questions);
+            var bestQuestion = getDivideQuestion();
 
             if (bestQuestion == null)
                 throw new Exception("partitioning error");
@@ -86,7 +85,7 @@ namespace Core.Modules
                 QuestionText = bestQuestion.Text,
                 UserAnswer = AnswerType.Unknown
             };
-            _gameData.QuestionSet.Add(gameQuestion);
+            _currentGameQuestion = gameQuestion;
             return gameQuestion;
         }
 
@@ -97,7 +96,7 @@ namespace Core.Modules
             var unforgiveableQuestions = _context.GetQuestions(x => x.Unforgiveable);
             if (unforgiveableQuestions == null || unforgiveableQuestions?.Count == 0)
                 unforgiveableQuestions = _context.GetAllQuestions();
-            var bestQuestion = getBestPartition(unforgiveableQuestions);
+            var bestQuestion = getInitialPartition(unforgiveableQuestions);
             
             var gameQuestion = new GameQuestion()
             {
@@ -106,20 +105,51 @@ namespace Core.Modules
                 QuestionText = bestQuestion.Text,
                 UserAnswer = AnswerType.Unknown
             };
-            _gameData.QuestionSet.Add(gameQuestion);
+            _currentGameQuestion = gameQuestion;
             return gameQuestion;
         }
 
-        private Question getBestPartition(IList<Question> questions)
+        private Question getDivideQuestion()
+        {
+            //all possible questions left
+            var questions = _context.GetQuestions
+                (x => Enumerable.All<GameQuestion>(_gameData.QuestionSet, y => y.QuestionId != x.QuestionId));
+            //all persons considered in game
+            var persons = _context.GetPersons(
+                (x => Enumerable.Any<GamePerson>(_gameData.PeopleSet, y => y.PersonId == x.PersonId)));
+
+            Question bestQuestion = null;
+            var bestSum = int.MaxValue;
+            foreach (var question in questions)
+            {
+                var preciseAnswers = _context.GetAnswers(x => x.QuestionId == question.QuestionId)
+                    .Where(x => persons.Any(y => y.PersonId == x.PersonId))
+                    .Select(x => x.YesCount > x.NoCount ? 1 : -1).Sum();
+                if (Math.Abs(preciseAnswers) < bestSum)
+                {
+                    bestSum = Math.Abs(preciseAnswers);
+                    bestQuestion = question;
+                }
+            }
+            foreach (var person in _gameData.PeopleSet)
+            {
+                var answer = _context.GetAnswers(x => x.PersonId == person.PersonId 
+                && x.QuestionId == bestQuestion?.QuestionId).Single();
+                person.CurrentAnswer = calculateDominatingAnswer(answer.YesCount, answer.NoCount);
+            }
+            return bestQuestion;
+        }
+
+        private Question getInitialPartition(IList<Question> questions)
         {
             Question bestQuestion = null;
-            var bestSum = int.MinValue;
+            var bestSum = int.MaxValue;
             foreach (var question in questions)
             {
                 var preciseAnswers = Enumerable.Select<Answer, int>(_context.GetAnswers(x => x.QuestionId == question.QuestionId), x=> x.YesCount > x.NoCount ? 1 : -1).Sum();
-                if (Math.Abs(preciseAnswers) < Math.Abs(bestSum))
+                if (Math.Abs(preciseAnswers) < bestSum)
                 {
-                    bestSum = preciseAnswers;
+                    bestSum = Math.Abs(preciseAnswers);
                     bestQuestion = question;
                 }
             }
@@ -147,8 +177,11 @@ namespace Core.Modules
 
         private bool canGuess(ICollection<GamePerson> peopleSet)
         {
+            Random r = new Random();
+            if (r.Next(10) < 6)
+                return false;
             //if one of persons is very distinguishable from the others return true
-            if (_gameData.QuestionsAsked < 5)
+            if (_gameData.QuestionsAsked < 4)
                 return false;
 
             var correctCounts = Enumerable.Select<GamePerson, double>(_gameData.PeopleSet, x => (double)x.CorrectAnswers/(double)x.OccurenceCount);

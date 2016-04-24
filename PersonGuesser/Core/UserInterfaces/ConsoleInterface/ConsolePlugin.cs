@@ -15,25 +15,27 @@ namespace Core.UserInterfaces.ConsoleInterface
     {
         private IInteraction _module;
 
-        public ConsolePlugin()
+
+        public ConsolePlugin(IInteraction module)
         {
-            _module = new InteractionModule();
+            _module = module;
         }
 
         public void Run()
         {
             while (true)
             {
-                string input;
                 Console.WriteLine("[y] - start new game, [n] - exit");
-                input = Console.ReadLine();
-                if (input[0] == 'y')
-                    Start();
-                else if (input[0] == 'n')
-                    return;
-                else
+                var input = Console.ReadLine();
+                switch (input[0])
                 {
-                    continue;
+                    case 'y':
+                        Start();
+                        break;
+                    case 'n':
+                        return;
+                    default:
+                        continue;
                 }
                 break;
             }
@@ -56,7 +58,6 @@ namespace Core.UserInterfaces.ConsoleInterface
 
         public void HandleStep(Step s)
         {
-            //TODO: liskov
             Type t = s.GetType();
             if (t == typeof (VictoryStep))
             {
@@ -91,9 +92,9 @@ namespace Core.UserInterfaces.ConsoleInterface
         public void DisplaySummary()
         {
             var summary = _module.GetSummary();
-            Console.WriteLine("Guessed person: {0}", summary.GuessedGamePerson);
+            Console.WriteLine("Guessed person: {0}", summary.GuessedGamePerson.Name);
             Console.WriteLine("Questions:");
-            int i = 0;
+            int i = 1;
             foreach (var entry in summary.Entries)
             {
                 Console.WriteLine("{0}: {1} - database: {2}, user: {3}",i++, entry.QuestionText, 

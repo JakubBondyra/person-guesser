@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 using DataAccess.Entities;
 
 namespace DataAccess.Migrations
@@ -27,7 +27,7 @@ namespace DataAccess.Migrations
                 },
                 new Person()
                 {
-                    Name = "Boles≥aw Chrobry",
+                    Name = "Boles≈Çaw Chrobry",
                     Count = 1
                 },
                 new Person()
@@ -37,12 +37,12 @@ namespace DataAccess.Migrations
                 },
                 new Person()
                 {
-                    Name = "Boles≥aw Krzywousty",
+                    Name = "Boles≈Çaw Krzywousty",
                     Count = 1
                 },
                 new Person()
                 {
-                    Name = "W≥adys≥aw £okietek",
+                    Name = "W≈Çadys≈Çaw ≈Åokietek",
                     Count = 1
                 },
                 new Person()
@@ -52,27 +52,27 @@ namespace DataAccess.Migrations
                 },
                 new Person()
                 {
-                    Name = "Ludwik AndegaweÒczyk",
+                    Name = "Ludwik Andegawe≈Ñczyk",
                     Count = 1
                 },
                 new Person()
                 {
-                    Name = "Jadwiga AndegaweÒska",
+                    Name = "Jadwiga Andegawe≈Ñska",
                     Count = 1
                 },
                 new Person()
                 {
-                    Name = "W≥adys≥aw II Jagie≥≥o",
+                    Name = "W≈Çadys≈Çaw II Jagie≈Ç≈Ço",
                     Count = 1
                 },
                 new Person()
                 {
-                    Name = "W≥adys≥aw III WarneÒczyk",
+                    Name = "W≈Çadys≈Çaw III Warne≈Ñczyk",
                     Count = 1
                 },
                 new Person()
                 {
-                    Name = "Kazimierz IV JagielloÒczyk",
+                    Name = "Kazimierz IV Jagiello≈Ñczyk",
                     Count = 1
                 },
                 new Person()
@@ -82,7 +82,7 @@ namespace DataAccess.Migrations
                 },
                 new Person()
                 {
-                    Name = "Aleksander II JagielloÒczyk",
+                    Name = "Aleksander II Jagiello≈Ñczyk",
                     Count = 1
                 },
                 new Person()
@@ -112,7 +112,7 @@ namespace DataAccess.Migrations
                 },
                 new Person()
                 {
-                    Name = "W≥adys≥aw IV Waza",
+                    Name = "W≈Çadys≈Çaw IV Waza",
                     Count = 1
                 },
                 new Person()
@@ -122,7 +122,7 @@ namespace DataAccess.Migrations
                 },
                 new Person()
                 {
-                    Name = "Micha≥ Korybut Wiúniowiecki",
+                    Name = "Micha≈Ç Korybut Wi≈õniowiecki",
                     Count = 1
                 },
                 new Person()
@@ -142,32 +142,32 @@ namespace DataAccess.Migrations
                 },
                 new Person()
                 {
-                    Name = "Stanis≥aw LeszczyÒski",
+                    Name = "Stanis≈Çaw Leszczy≈Ñski",
                     Count = 1
                 },
                 new Person()
                 {
-                    Name = "Stanis≥aw August Poniatowski",
+                    Name = "Stanis≈Çaw August Poniatowski",
                     Count = 1
                 },
                 new Person()
                 {
-                    Name = "Lech Wa≥Ísa",
+                    Name = "Lech Wa≈Çƒôsa",
                     Count = 1
                 },
                 new Person()
                 {
-                    Name = "Ignacy Moúcicki",
+                    Name = "Ignacy Mo≈õcicki",
                     Count = 1
                 },
                 new Person()
                 {
-                    Name = "Aleksander Kwaúniewski",
+                    Name = "Aleksander Kwa≈õniewski",
                     Count = 1
                 },
                 new Person()
                 {
-                    Name = "Bronis≥aw Komorowski",
+                    Name = "Bronis≈Çaw Komorowski",
                     Count = 1
                 },
                 new Person()
@@ -177,7 +177,7 @@ namespace DataAccess.Migrations
                 },
                 new Person()
                 {
-                    Name = "Lech KaczyÒski",
+                    Name = "Lech Kaczy≈Ñski",
                     Count = 1
                 }
             };
@@ -186,50 +186,50 @@ namespace DataAccess.Migrations
             {
                 new Question()
                 {
-                    Text = "Czy by≥ ostatnim krÛlem Polski?",
+                    Text = "Czy by≈Ç ostatnim kr√≥lem Polski?",
                     Unforgiveable = true
                 },
                 new Question()
                 {
-                    Text = "Czy pochodzi≥ z dynastii JagielloÒczykÛw?"
+                    Text = "Czy pochodzi≈Ç z dynastii Jagiello≈Ñczyk√≥w?"
                 },
                 new Question()
                 {
-                    Text = "Czy pochodzi≥ z dynastii PiastÛw?"
+                    Text = "Czy pochodzi≈Ç z dynastii Piast√≥w?"
                 },
                 new Question()
                 {
-                    Text = "Czy by≥ krÛlem elekcyjnym?"
+                    Text = "Czy by≈Ç kr√≥lem elekcyjnym?"
                 },
                 new Question()
                 {
-                    Text = "Czy by≥ mÍøczyznπ?",
+                    Text = "Czy by≈Ç mƒô≈ºczyznƒÖ?",
                     Unforgiveable = true
                 },
                 new Question()
                 {
-                    Text = "Czy jako krÛl rzπdzi≥ d≥uøej niø 5 lat?"
+                    Text = "Czy jako kr√≥l rzƒÖdzi≈Ç d≈Çu≈ºej ni≈º 5 lat?"
                 },
                 new Question()
                 {
-                    Text = "Czy øy≥ w XIV wieku?"
+                    Text = "Czy ≈ºy≈Ç w XIV wieku?"
                 },
                 new Question()
                 {
-                    Text = "Czy øy≥ w XVII wieku?"
+                    Text = "Czy ≈ºy≈Ç w XVII wieku?"
                 },
                 new Question()
                 {
-                    Text = "Czy zginπ≥ úmierciπ tragicznπ?"
+                    Text = "Czy zginƒÖ≈Ç ≈õmierciƒÖ tragicznƒÖ?"
                 },
                 new Question()
                 {
-                    Text = "Czy by≥ prezydentem?",
+                    Text = "Czy by≈Ç prezydentem?",
                     Unforgiveable = true
                 },
                 new Question()
                 {
-                    Text = "Czy nadal øyje?",
+                    Text = "Czy nadal ≈ºyje?",
                     Unforgiveable = true
                 },
                 new Question()
@@ -239,53 +239,53 @@ namespace DataAccess.Migrations
                 },
                 new Question()
                 {
-                    Text = "Czy ma obecnie wiÍcej niø 60 lat?"
+                    Text = "Czy ma obecnie wiƒôcej ni≈º 60 lat?"
                 },
                 new Question()
                 {
-                    Text = "Czy wiadomo, øe lubi≥ wypiÊ?"
+                    Text = "Czy wiadomo, ≈ºe lubi≈Ç wypiƒá?"
                 },
                 new Question()
                 {
-                    Text = "Czy øy≥ juø przed II wojnπ úwiatowπ?",
+                    Text = "Czy ≈ºy≈Ç ju≈º przed II wojnƒÖ ≈õwiatowƒÖ?",
                     Unforgiveable = true
                 },
                 new Question()
                 {
-                    Text = "Czy by≥ koronowany?"
+                    Text = "Czy by≈Ç koronowany?"
                 },
                 new Question()
                 {
-                    Text = "Czy za jego czasu panowa≥ chaos w paÒstwie?"
+                    Text = "Czy za jego czasu panowa≈Ç chaos w pa≈Ñstwie?"
                 },
                 new Question()
                 {
-                    Text = "Czy za jego czasÛw podzielono kraj (rozbiory, rozbicie dzielnicowe)?"
+                    Text = "Czy za jego czas√≥w podzielono kraj (rozbiory, rozbicie dzielnicowe)?"
                 },
                 new Question()
                 {
-                    Text = "Czy na nim zakoÒczy≥a siÍ dynastia?"
+                    Text = "Czy na nim zako≈Ñczy≈Ça siƒô dynastia?"
                 },
                 new Question()
                 {
-                    Text = "Czy wygra≥ jakπú bardzo waønπ bitwÍ?"
+                    Text = "Czy wygra≈Ç jakƒÖ≈õ bardzo wa≈ºnƒÖ bitwƒô?"
                 },
                 new Question()
                 {
-                    Text = "Czy pochodzi≥ z obcej dynastii?"
+                    Text = "Czy pochodzi≈Ç z obcej dynastii?"
                 },
                 new Question()
                 {
-                    Text = "Czy przeniÛs≥ stolicÍ Polski?"
+                    Text = "Czy przeni√≥s≈Ç stolicƒô Polski?"
                 }
             };
 
 
             //22 pytania
-            //dla kazdej osoby dodaj answer dla tego pytania i z odpowiedziπ nie (5x)
-            //potem pododawaj dla dobrych osÛb dobre odpowiedzi
+            //dla kazdej osoby dodaj answer dla tego pytania i z odpowiedziƒÖ nie (5x)
+            //potem pododawaj dla dobrych os√≥b dobre odpowiedzi
             var answers = new List<Answer>();
-            var question = questions.Single(x => x.Text == "Czy przeniÛs≥ stolicÍ Polski?");
+            var question = questions.Single(x => x.Text == "Czy przeni√≥s≈Ç stolicƒô Polski?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -300,14 +300,14 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "W≥adys≥aw £okietek");
+            specifiedPerson = answers.Single(x => x.Person.Name == "W≈Çadys≈Çaw ≈Åokietek");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
             context.Answers.AddRange(answers);
             answers.Clear();
             //
-            question = questions.Single(x => x.Text == "Czy pochodzi≥ z obcej dynastii?");
+            question = questions.Single(x => x.Text == "Czy pochodzi≈Ç z obcej dynastii?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -322,7 +322,7 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "W≥adys≥aw IV Waza");
+            specifiedPerson = answers.Single(x => x.Person.Name == "W≈Çadys≈Çaw IV Waza");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
@@ -346,18 +346,18 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Ludwik AndegaweÒczyk");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Ludwik Andegawe≈Ñczyk");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Jadwiga AndegaweÒska");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Jadwiga Andegawe≈Ñska");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy wygra≥ jakπú bardzo waønπ bitwÍ?");
+            question = questions.Single(x => x.Text == "Czy wygra≈Ç jakƒÖ≈õ bardzo wa≈ºnƒÖ bitwƒô?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -370,7 +370,7 @@ namespace DataAccess.Migrations
             }
 
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "W≥adys≥aw II Jagie≥≥o");
+            specifiedPerson = answers.Single(x => x.Person.Name == "W≈Çadys≈Çaw II Jagie≈Ç≈Ço");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
@@ -381,7 +381,7 @@ namespace DataAccess.Migrations
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy na nim zakoÒczy≥a siÍ dynastia?");
+            question = questions.Single(x => x.Text == "Czy na nim zako≈Ñczy≈Ça siƒô dynastia?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -403,7 +403,7 @@ namespace DataAccess.Migrations
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy za jego czasÛw podzielono kraj (rozbiory, rozbicie dzielnicowe)?");
+            question = questions.Single(x => x.Text == "Czy za jego czas√≥w podzielono kraj (rozbiory, rozbicie dzielnicowe)?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -418,7 +418,7 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Boles≥aw Krzywousty");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Boles≈Çaw Krzywousty");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
@@ -426,14 +426,14 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Ignacy Moúcicki");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Ignacy Mo≈õcicki");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy za jego czasu panowa≥ chaos w paÒstwie?");
+            question = questions.Single(x => x.Text == "Czy za jego czasu panowa≈Ç chaos w pa≈Ñstwie?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -456,18 +456,18 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Stanis≥aw LeszczyÒski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Stanis≈Çaw Leszczy≈Ñski");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Stanis≥aw August Poniatowski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Stanis≈Çaw August Poniatowski");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy by≥ koronowany?");
+            question = questions.Single(x => x.Text == "Czy by≈Ç koronowany?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -483,19 +483,19 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Wa≥Ísa");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Wa≈Çƒôsa");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Ignacy Moúcicki");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Ignacy Mo≈õcicki");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander Kwaúniewski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander Kwa≈õniewski");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Lech KaczyÒski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Kaczy≈Ñski");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
@@ -503,14 +503,14 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Bronis≥aw Komorowski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Bronis≈Çaw Komorowski");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy øy≥ juø przed II wojnπ úwiatowπ?");
+            question = questions.Single(x => x.Text == "Czy ≈ºy≈Ç ju≈º przed II wojnƒÖ ≈õwiatowƒÖ?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -521,19 +521,19 @@ namespace DataAccess.Migrations
                     YesCount = 5
                 });
             }
-            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Wa≥Ísa");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Wa≈Çƒôsa");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Lech KaczyÒski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Kaczy≈Ñski");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander Kwaúniewski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander Kwa≈õniewski");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Bronis≥aw Komorowski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Bronis≈Çaw Komorowski");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
@@ -544,7 +544,7 @@ namespace DataAccess.Migrations
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy wiadomo, øe lubi≥ wypiÊ?");
+            question = questions.Single(x => x.Text == "Czy wiadomo, ≈ºe lubi≈Ç wypiƒá?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -556,14 +556,14 @@ namespace DataAccess.Migrations
                 });
             }
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander Kwaúniewski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander Kwa≈õniewski");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy ma obecnie wiÍcej niø 60 lat?");
+            question = questions.Single(x => x.Text == "Czy ma obecnie wiƒôcej ni≈º 60 lat?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -575,15 +575,15 @@ namespace DataAccess.Migrations
                 });
             }
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander Kwaúniewski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander Kwa≈õniewski");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Bronis≥aw Komorowski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Bronis≈Çaw Komorowski");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Wa≥Ísa");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Wa≈Çƒôsa");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
@@ -609,7 +609,7 @@ namespace DataAccess.Migrations
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy nadal øyje?");
+            question = questions.Single(x => x.Text == "Czy nadal ≈ºyje?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -621,11 +621,11 @@ namespace DataAccess.Migrations
                 });
             }
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander Kwaúniewski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander Kwa≈õniewski");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Bronis≥aw Komorowski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Bronis≈Çaw Komorowski");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
@@ -633,14 +633,14 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Wa≥Ísa");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Wa≈Çƒôsa");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy by≥ prezydentem?");
+            question = questions.Single(x => x.Text == "Czy by≈Ç prezydentem?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -652,11 +652,11 @@ namespace DataAccess.Migrations
                 });
             }
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander Kwaúniewski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander Kwa≈õniewski");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Bronis≥aw Komorowski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Bronis≈Çaw Komorowski");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
@@ -664,18 +664,18 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Wa≥Ísa");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Wa≈Çƒôsa");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Ignacy Moúcicki");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Ignacy Mo≈õcicki");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy zginπ≥ úmierciπ tragicznπ?");
+            question = questions.Single(x => x.Text == "Czy zginƒÖ≈Ç ≈õmierciƒÖ tragicznƒÖ?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -687,18 +687,18 @@ namespace DataAccess.Migrations
                 });
             }
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Lech KaczyÒski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Kaczy≈Ñski");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "W≥adys≥aw III WarneÒczyk");
+            specifiedPerson = answers.Single(x => x.Person.Name == "W≈Çadys≈Çaw III Warne≈Ñczyk");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy øy≥ w XVII wieku?");
+            question = questions.Single(x => x.Text == "Czy ≈ºy≈Ç w XVII wieku?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -714,7 +714,7 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "W≥adys≥aw IV Waza");
+            specifiedPerson = answers.Single(x => x.Person.Name == "W≈Çadys≈Çaw IV Waza");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
@@ -730,14 +730,14 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Micha≥ Korybut Wiúniowiecki");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Micha≈Ç Korybut Wi≈õniowiecki");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy øy≥ w XIV wieku?");
+            question = questions.Single(x => x.Text == "Czy ≈ºy≈Ç w XIV wieku?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -749,15 +749,15 @@ namespace DataAccess.Migrations
                 });
             }
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "W≥adys≥aw II Jagie≥≥o");
+            specifiedPerson = answers.Single(x => x.Person.Name == "W≈Çadys≈Çaw II Jagie≈Ç≈Ço");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "W≥adys≥aw III WarneÒczyk");
+            specifiedPerson = answers.Single(x => x.Person.Name == "W≈Çadys≈Çaw III Warne≈Ñczyk");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Kazimierz IV JagielloÒczyk");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Kazimierz IV Jagiello≈Ñczyk");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
@@ -768,7 +768,7 @@ namespace DataAccess.Migrations
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy jako krÛl rzπdzi≥ d≥uøej niø 5 lat?");
+            question = questions.Single(x => x.Text == "Czy jako kr√≥l rzƒÖdzi≈Ç d≈Çu≈ºej ni≈º 5 lat?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -780,7 +780,7 @@ namespace DataAccess.Migrations
                 });
             }
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Micha≥ Korybut Wiúniowiecki");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Micha≈Ç Korybut Wi≈õniowiecki");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
@@ -788,23 +788,23 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander II JagielloÒczyk");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander II Jagiello≈Ñczyk");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Wa≥Ísa");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Wa≈Çƒôsa");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Ignacy Moúcicki");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Ignacy Mo≈õcicki");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander Kwaúniewski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander Kwa≈õniewski");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Lech KaczyÒski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Lech Kaczy≈Ñski");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
@@ -812,14 +812,14 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Bronis≥aw Komorowski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Bronis≈Çaw Komorowski");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy by≥ mÍøczyznπ?");
+            question = questions.Single(x => x.Text == "Czy by≈Ç mƒô≈ºczyznƒÖ?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -831,14 +831,14 @@ namespace DataAccess.Migrations
                 });
             }
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Jadwiga AndegaweÒska");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Jadwiga Andegawe≈Ñska");
             specifiedPerson.NoCount = 5;
             specifiedPerson.YesCount = 0;
 
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy by≥ krÛlem elekcyjnym?");
+            question = questions.Single(x => x.Text == "Czy by≈Ç kr√≥lem elekcyjnym?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -862,7 +862,7 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "W≥adys≥aw IV Waza");
+            specifiedPerson = answers.Single(x => x.Person.Name == "W≈Çadys≈Çaw IV Waza");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
@@ -878,7 +878,7 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Micha≥ Korybut Wiúniowiecki");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Micha≈Ç Korybut Wi≈õniowiecki");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
@@ -886,18 +886,18 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Stanis≥aw LeszczyÒski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Stanis≈Çaw Leszczy≈Ñski");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Stanis≥aw August Poniatowski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Stanis≈Çaw August Poniatowski");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy pochodzi≥ z dynastii JagielloÒczykÛw?");
+            question = questions.Single(x => x.Text == "Czy pochodzi≈Ç z dynastii Jagiello≈Ñczyk√≥w?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -909,15 +909,15 @@ namespace DataAccess.Migrations
                 });
             }
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "W≥adys≥aw II Jagie≥≥o");
+            specifiedPerson = answers.Single(x => x.Person.Name == "W≈Çadys≈Çaw II Jagie≈Ç≈Ço");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "W≥adys≥aw III WarneÒczyk");
+            specifiedPerson = answers.Single(x => x.Person.Name == "W≈Çadys≈Çaw III Warne≈Ñczyk");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Kazimierz IV JagielloÒczyk");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Kazimierz IV Jagiello≈Ñczyk");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
@@ -925,7 +925,7 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander II JagielloÒczyk");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Aleksander II Jagiello≈Ñczyk");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
@@ -940,7 +940,7 @@ namespace DataAccess.Migrations
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy pochodzi≥ z dynastii PiastÛw?");
+            question = questions.Single(x => x.Text == "Czy pochodzi≈Ç z dynastii Piast√≥w?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -960,15 +960,15 @@ namespace DataAccess.Migrations
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Boles≥aw Krzywousty");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Boles≈Çaw Krzywousty");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Boles≥aw Chrobry");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Boles≈Çaw Chrobry");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "W≥adys≥aw £okietek");
+            specifiedPerson = answers.Single(x => x.Person.Name == "W≈Çadys≈Çaw ≈Åokietek");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
@@ -979,7 +979,7 @@ namespace DataAccess.Migrations
             context.Answers.AddRange(answers);
             answers.Clear();
 
-            question = questions.Single(x => x.Text == "Czy by≥ ostatnim krÛlem Polski?");
+            question = questions.Single(x => x.Text == "Czy by≈Ç ostatnim kr√≥lem Polski?");
             foreach (var person in people)
             {
                 answers.Add(new Answer()
@@ -991,7 +991,7 @@ namespace DataAccess.Migrations
                 });
             }
 
-            specifiedPerson = answers.Single(x => x.Person.Name == "Stanis≥aw August Poniatowski");
+            specifiedPerson = answers.Single(x => x.Person.Name == "Stanis≈Çaw August Poniatowski");
             specifiedPerson.NoCount = 0;
             specifiedPerson.YesCount = 5;
 
