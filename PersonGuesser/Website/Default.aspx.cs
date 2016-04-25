@@ -19,7 +19,8 @@ namespace Website
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            var context = HttpContext.Current;
+            context.Session.Add("dupa", 0);
         }
 
         protected void YesEventHandler(object sender, EventArgs e)
@@ -32,6 +33,7 @@ namespace Website
             StartWindowVisibility = "none";
             EndWindowVisibility = "";
             MainWindowVisibility = "none";
+            
         }
 
         protected void DkEventHandler(object sender, EventArgs e)

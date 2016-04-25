@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Modules;
 using Core.UserInterfaces;
 using Core.UserInterfaces.ConsoleInterface;
 
@@ -12,7 +13,7 @@ namespace pgConsole
     {
         static void Main(string[] args)
         {
-            IGamePlugin plugin = new ConsolePlugin();
+            IGamePlugin plugin = new ConsolePlugin(new InteractionModule());
             plugin.Run();
             Console.WriteLine("Plugin ended. Exiting.");
         }
