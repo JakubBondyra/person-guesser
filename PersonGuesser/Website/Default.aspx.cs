@@ -19,8 +19,6 @@ namespace Website
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            var context = HttpContext.Current;
-            context.Session.Add("dupa", 0);
         }
 
         protected void YesEventHandler(object sender, EventArgs e)

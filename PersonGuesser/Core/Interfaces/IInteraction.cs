@@ -5,7 +5,7 @@ namespace Core.Interfaces
 {
     public interface IInteraction
     {
-        void StartGame(UnitOfWork u);
+        void StartGame();
         Step GetStep();
         void SaveAnswer(AnswerType answer);
         GameSummary GetSummary();

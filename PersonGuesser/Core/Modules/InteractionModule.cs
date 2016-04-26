@@ -12,9 +12,10 @@ namespace Core.Modules
         {
         }
 
-        public void StartGame(UnitOfWork context)
+        public void StartGame()
         {
-            _dataModule = new Modules.DataModule( new GameData(), context );
+            var unit = new UnitOfWork(new PgContext());
+            _dataModule = new Modules.DataModule( new GameData(), unit );
         }
 
         public Step GetStep()

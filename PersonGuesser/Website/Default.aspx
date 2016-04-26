@@ -12,7 +12,7 @@
              <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                    <div class="btn btn-primary btn-lg btn-danger mybutton" onclick="doWork()">Start</div>
+                    <div class="btn btn-primary btn-lg btn-danger mybutton">Start</div>
                 </div>
             </div>
         </div>

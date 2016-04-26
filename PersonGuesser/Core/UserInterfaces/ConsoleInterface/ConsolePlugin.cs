@@ -43,7 +43,7 @@ namespace Core.UserInterfaces.ConsoleInterface
 
         public void Start()
         {
-            _module.StartGame(new UnitOfWork(new PgContext()));
+            _module.StartGame();
             Play();
         }
 
