@@ -7,7 +7,7 @@ function ajaxCall(_url, _data, _successFuncton) {
         $.ajax(
                 {
                     url: _url,
-                    type: 'GET',
+                    type: 'POST',
                     contentType: 'application/JSON; charset=utf-8',
                     data: _data,
                     dataType: 'json',
@@ -96,6 +96,24 @@ function displaySummaryScreen(summary) {
     $('#game').append(r);
     $('#game').append($('<br/>'));
     $('#game').append($('<br/>'));
+    //append entries
+    $('#game').append($("<p>Osoba - " + summary.GuessedName + "</p>"));
+    var table = $('<table></table>');
+    var tr = $('<tr></tr>');
+    tr.append($('<td>Pytanie    </td>'));
+    tr.append($('<td>Odpowiedziałeś:</td>'));
+    tr.append($('<td>W systemie:</td>'));
+    table.append(tr);
+
+    for (var i = 0; i < summary.Entries.length; i++) {
+        tr = $('<tr></tr>');
+        tr.append($('<td>' + summary.Entries[i].QuestionText + '   </td>'));
+        tr.append($('<td>' + summary.Entries[i].UserAnswer + '</td>'));
+        tr.append($('<td>' + summary.Entries[i].SystemAnswer + '</td>'));
+        table.append(tr);
+    }
+    $('#game').append(table);
+
     var buttonRow = $('<div class="row"></div>');
     var colyes = $('<div class="col-md-4"></div>');
     var byes = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="endGame()">Restart</div>');
@@ -110,49 +128,48 @@ function displaySummaryScreen(summary) {
     buttonRow.append(coldk);
     buttonRow.append(colno);
     $('#game').append(buttonRow);
-    //append entries
 }
 
 function sendYesAnswer() {
-    sendAnswer("yes");
+    sendAnswer("Yes");
 }
 
 function sendNoAnswer() {
-    sendAnswer("no");
+    sendAnswer("No");
 }
 
 function sendDkAnswer() {
-    sendAnswer("unknown");
+    sendAnswer("Unknown");
 }
 
 function sendAnswer(answer) {
-    ajaxCall('/GameService/GetStep', '{AnswerType: ' + answer + '}', handleStep(data));
+    ajaxCall('/GameService.svc/GetStep', '{"answer":"'+answer+'"}', handleStep);
 }
 
 function sendSummaryDemand() {
-    ajaxCall('/GameService/GetSummary', '', handleSummary(data));
+    ajaxCall('/GameService.svc/GetSummary', '', handleSummary);
 }
 
 function initializeGame() {
-    ajaxCall('/GameService/StartGame', '', null);
-    ajaxCall('/GameSerice/GetStep', '', handleStep(data));
+    ajaxCall('/GameService.svc/StartGame', ' ', null);
+    ajaxCall('/GameService.svc/GetStep', '{"answer":"Init"}', handleStep);
 }
 function endGame() {
-    ajaxCall('/GameService/EndGame', '', null);
+    ajaxCall('/GameService.svc/EndGame', '', null);
     displayStartScreen();
 }
 
 function handleStep(step) {
-    if (step.StepType == "Defeat")
+    if (step.d.StepType == "Defeat")
         displayEndScreen('I have lost.')
-    else if (step.StepType== "Victory")
+    else if (step.d.StepType== "Victory")
         displayEndScreen('I have guessed correctly.')
-    else if (step.StepType == 'Question')
-        displayGameScreen(step.Question);
-    else if (step.StepType == 'Guessing')
-        displayGameScreen(step.Question);
+    else if (step.d.StepType == 'Question')
+        displayGameScreen(step.d.Question);
+    else if (step.d.StepType == 'Guessing')
+        displayGameScreen(step.d.Question);
 }
 
 function handleSummary(summary) {
-    displaySummaryScreen(summary);
+    displaySummaryScreen(summary.d);
 }

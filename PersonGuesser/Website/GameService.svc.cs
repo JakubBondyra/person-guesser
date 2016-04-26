@@ -26,7 +26,7 @@ namespace Website
         }
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json)]
         public void StartGame ()
         {
@@ -34,7 +34,7 @@ namespace Website
         }
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json)]
         public void EndGame()
         {
@@ -42,7 +42,7 @@ namespace Website
         }
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json)]
         public SummaryData GetSummary()
         {
@@ -51,26 +51,34 @@ namespace Website
         }
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
         ResponseFormat = WebMessageFormat.Json)]
-        public StepData GetStep(AnswerData answer)
+        public StepData GetStep(string answer)
         {
-            switch (answer.AnswerType)
+            try
             {
-                case "Yes":
-                    _module.SaveAnswer(AnswerType.Yes);
-                    break;
-                case "No":
-                    _module.SaveAnswer(AnswerType.No);
-                    break;
-                case "Unknown":
-                    _module.SaveAnswer(AnswerType.Unknown);
-                    break;
-                default:
-                    break;
+                switch (answer)
+                {
+                    case "Yes":
+                        _module.SaveAnswer(AnswerType.Yes);
+                        break;
+                    case "No":
+                        _module.SaveAnswer(AnswerType.No);
+                        break;
+                    case "Unknown":
+                        _module.SaveAnswer(AnswerType.Unknown);
+                        break;
+                    default:
+                        break;
+                }
+
+                var s = _module.GetStep();
+                return translateStep(s);
             }
-            var s = _module.GetStep();
-            return translateStep(s);
+            catch (Exception e)
+            {
+                return new StepData() { StepType = "Question", Question = e.Message };
+            }
         }
 
         private StepData translateStep(Step s)
