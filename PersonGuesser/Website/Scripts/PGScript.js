@@ -44,6 +44,13 @@ function displayGameScreen(text) {
     //displaying game (question, answers) screen
     $('#game').empty();
     var r = $('<div class="row"></div>');
+    var c = $('<div class="col-md-4"></div>');
+    c.append($('<div class="btn btn-primary btn-lg btn-danger mybutton">Powrót</div>'));
+    r.append(c);
+    r.append($('<div class="col-md-4"></div>'));
+    r.append($('<div class="col-md-4"></div>'));
+    $('#game').append(r);
+    r = $('<div class="row"></div>');
     r.append('<h2 class="text-center">'+text+'</h2>');
     $('#game').append(r);
     $('#game').append($('<br/>'));
@@ -86,48 +93,28 @@ function displayEndScreen(text) {
     buttonRow.append(coldk);
     buttonRow.append(colno);
     $('#game').append(buttonRow);
+    $('#game').append($('<div id="summary"></div>'));
 }
 
 function displaySummaryScreen(summary) {
     //displaying summary screen
-    $('#game').empty();
-    var r = $('<div class="row"></div>');
-    r.append('<h2 class="text-center">Podsumowanie</h2>');
-    $('#game').append(r);
-    $('#game').append($('<br/>'));
-    $('#game').append($('<br/>'));
     //append entries
-    $('#game').append($("<p>Osoba - " + summary.GuessedName + "</p>"));
-    var table = $('<table></table>');
-    var tr = $('<tr></tr>');
-    tr.append($('<td>Pytanie    </td>'));
-    tr.append($('<td>Odpowiedziałeś:</td>'));
-    tr.append($('<td>W systemie:</td>'));
-    table.append(tr);
+    if ($('#summary').children().length > 0)
+        return;
+    $('#summary').append($("<strong>Osoba - " + summary.GuessedName + "</strong>"));
+    var tr = $('<div class="row"></div>');
+    tr.append($('<div class="col-md-8 sumhs">Pytanie</div>'));
+    tr.append($('<div class="col-md-2 sumusr">Ty:</div>'));
+    tr.append($('<div class="col-md-2 sumsys">W systemie:</div>'));
+    $('#summary').append(tr);
 
     for (var i = 0; i < summary.Entries.length; i++) {
-        tr = $('<tr></tr>');
-        tr.append($('<td>' + summary.Entries[i].QuestionText + '   </td>'));
-        tr.append($('<td>' + summary.Entries[i].UserAnswer + '</td>'));
-        tr.append($('<td>' + summary.Entries[i].SystemAnswer + '</td>'));
-        table.append(tr);
+        tr = $('<div class="row"></div>');
+        tr.append($('<div class="col-md-8 sumhs">' + summary.Entries[i].QuestionText + '</div>'));
+        tr.append($('<div class="col-md-2 sumusr">' + summary.Entries[i].UserAnswer + '</div>'));
+        tr.append($('<div class="col-md-2 sumsys">' + summary.Entries[i].SystemAnswer + '</div>'));
+        $('#summary').append(tr);
     }
-    $('#game').append(table);
-
-    var buttonRow = $('<div class="row"></div>');
-    var colyes = $('<div class="col-md-4"></div>');
-    var byes = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="endGame()">Restart</div>');
-    colyes.append(byes);
-    var coldk = $('<div class="col-md-4"></div>')
-    var bdk = $('');
-    coldk.append(bdk);
-    var colno = $('<div class="col-md-4"></div>');
-    var dno = $('<div class="btn btn-primary btn-lg btn-block mybutton">Powrót</div>');
-    colno.append(dno);
-    buttonRow.append(colyes);
-    buttonRow.append(coldk);
-    buttonRow.append(colno);
-    $('#game').append(buttonRow);
 }
 
 function sendYesAnswer() {

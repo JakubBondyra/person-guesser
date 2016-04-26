@@ -40,3 +40,18 @@ input[type="select"] {
 .mybutton {
     background-color: #222222;
 }
+
+.sumsys {
+    color: blue;
+    font-weight: bold;
+}
+
+.sumusr {
+    color: green;
+    font-weight: bold;
+}
+
+.sumhs {
+    color: black;
+    font-weight: bold;
+}
