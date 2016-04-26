@@ -9,48 +9,8 @@ namespace Website
 {
     public partial class _Default : Page
     {
-        public string MainWindowVisibility { get; set; } = "none";
-
-        public string StartWindowVisibility { get; set; } = "";
-
-        public string EndWindowVisibility { get; set; } = "none";
-
-        //other visibilites
-
         protected void Page_Load(object sender, EventArgs e)
         {
-        }
-
-        protected void YesEventHandler(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void NoEventHandler(object sender, EventArgs e)
-        {
-            StartWindowVisibility = "none";
-            EndWindowVisibility = "";
-            MainWindowVisibility = "none";
-            
-        }
-
-        protected void DkEventHandler(object sender, EventArgs e)
-        {
-            StartWindowVisibility = "";
-            MainWindowVisibility = "none";
-        }
-
-        protected void StartGameEventHandler(object sender, EventArgs e)
-        {
-            StartWindowVisibility = "none";
-            MainWindowVisibility = "";
-        }
-
-        protected void ReturnToStartEventHandler(object sender, EventArgs e)
-        {
-            StartWindowVisibility = "";
-            EndWindowVisibility = "none";
-            MainWindowVisibility = "none";
         }
     }
 }
