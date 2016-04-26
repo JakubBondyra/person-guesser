@@ -67,7 +67,7 @@ namespace Website
                     _module.SaveAnswer(AnswerType.Unknown);
                     break;
                 default:
-                    return null;
+                    break;
             }
             var s = _module.GetStep();
             return translateStep(s);

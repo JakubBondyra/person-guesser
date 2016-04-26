@@ -1,4 +1,8 @@
 ﻿
+$(document).ready(function(e) {
+    displayStartScreen();
+});
+
 function ajaxCall(_url, _data, _successFuncton) {
         $.ajax(
                 {
@@ -14,26 +18,111 @@ function ajaxCall(_url, _data, _successFuncton) {
 
 function displayStartScreen() {
     //displaying first screen
-    //remove all childs of div
-    //append proper buttons and divs with handlers
+    $('#game').empty();
+    var r = $('<div class="row"></div>');
+    r.append('<h2 class="text-center">Rozpocznij nową grę</h2>');
+    $('#game').append(r);
+    $('#game').append($('<br/>'));
+    $('#game').append($('<br/>'));
+    var buttonRow = $('<div class="row"></div>');
+    var colyes = $('<div class="col-md-4"></div>');
+    var byes = $('');
+    colyes.append(byes);
+    var coldk = $('<div class="col-md-4"></div>')
+    var bdk = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="initializeGame()">Start</div>');
+    coldk.append(bdk);
+    var colno = $('<div class="col-md-4"></div>');
+    var dno = $('');
+    colno.append(dno);
+    buttonRow.append(colyes);
+    buttonRow.append(coldk);
+    buttonRow.append(colno);
+    $('#game').append(buttonRow);
 }
 
 function displayGameScreen(text) {
     //displaying game (question, answers) screen
-    //remove all childs of div
-    //append proper buttons and divs with handlers
+    $('#game').empty();
+    var r = $('<div class="row"></div>');
+    r.append('<h2 class="text-center">'+text+'</h2>');
+    $('#game').append(r);
+    $('#game').append($('<br/>'));
+    $('#game').append($('<br/>'));
+    var buttonRow = $('<div class="row"></div>');
+    var colyes = $('<div class="col-md-4"></div>');
+    var byes = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="sendYesAnswer()">Tak</div>');
+    colyes.append(byes);
+    var coldk = $('<div class="col-md-4"></div>')
+    var bdk = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="sendDkAnswer()">Nie wiem</div>');
+    coldk.append(bdk);
+    var colno = $('<div class="col-md-4"></div>');
+    var dno = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="sendNoAnswer()">Nie</div>');
+    colno.append(dno);
+    buttonRow.append(colyes);
+    buttonRow.append(coldk);
+    buttonRow.append(colno);
+    $('#game').append(buttonRow);
 }
 
 function displayEndScreen(text) {
     //displaying ending screen (with text)
-    //remove all childs of div
-    //append proper buttons and divs with handlers
+    $('#game').empty();
+    var r = $('<div class="row"></div>');
+    r.append('<h2 class="text-center">'+text+'</h2>');
+    $('#game').append(r);
+    $('#game').append($('<br/>'));
+    $('#game').append($('<br/>'));
+    var buttonRow = $('<div class="row"></div>');
+    var colyes = $('<div class="col-md-4"></div>');
+    var byes = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="sendSummaryDemand()">Podsumowanie</div>');
+    colyes.append(byes);
+    var coldk = $('<div class="col-md-4"></div>')
+    var bdk = $('<div class="btn btn-primary btn-lg btn-block mybutton">Pozostałe</div>');
+    coldk.append(bdk);
+    var colno = $('<div class="col-md-4"></div>');
+    var dno = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="endGame()">Restart</div>');
+    colno.append(dno);
+    buttonRow.append(colyes);
+    buttonRow.append(coldk);
+    buttonRow.append(colno);
+    $('#game').append(buttonRow);
 }
 
 function displaySummaryScreen(summary) {
     //displaying summary screen
-    //remove all childs of div
-    //append proper buttons and divs with handlers
+    $('#game').empty();
+    var r = $('<div class="row"></div>');
+    r.append('<h2 class="text-center">Podsumowanie</h2>');
+    $('#game').append(r);
+    $('#game').append($('<br/>'));
+    $('#game').append($('<br/>'));
+    var buttonRow = $('<div class="row"></div>');
+    var colyes = $('<div class="col-md-4"></div>');
+    var byes = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="endGame()">Restart</div>');
+    colyes.append(byes);
+    var coldk = $('<div class="col-md-4"></div>')
+    var bdk = $('');
+    coldk.append(bdk);
+    var colno = $('<div class="col-md-4"></div>');
+    var dno = $('<div class="btn btn-primary btn-lg btn-block mybutton">Powrót</div>');
+    colno.append(dno);
+    buttonRow.append(colyes);
+    buttonRow.append(coldk);
+    buttonRow.append(colno);
+    $('#game').append(buttonRow);
+    //append entries
+}
+
+function sendYesAnswer() {
+    sendAnswer("yes");
+}
+
+function sendNoAnswer() {
+    sendAnswer("no");
+}
+
+function sendDkAnswer() {
+    sendAnswer("unknown");
 }
 
 function sendAnswer(answer) {
@@ -46,9 +135,11 @@ function sendSummaryDemand() {
 
 function initializeGame() {
     ajaxCall('/GameService/StartGame', '', null);
+    ajaxCall('/GameSerice/GetStep', '', handleStep(data));
 }
 function endGame() {
     ajaxCall('/GameService/EndGame', '', null);
+    displayStartScreen();
 }
 
 function handleStep(step) {

@@ -3,12 +3,10 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="jumbotron">
-        <div id="startWindow" style="display: <%= StartWindowVisibility %>">
-            <div class="row">
-                <h2 class="text-center">Rozpocznij nową grę</h2>
-            </div>
-            <br/>
-            <br/>
+        <div id="game">
+            <div class="btn btn-primary btn-lg btn-danger mybutton" onclick="displayGameScreen('dupa')">Start</div>
+        </div>
+       <%-- 
              <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
@@ -52,7 +50,7 @@
                     <asp:button runat="server" OnClick="ReturnToStartEventHandler" CssClass="btn btn-primary btn-lg btn-block mybutton" Text="Zakończ"/>
                 </div>
             </div>
-        </div>
+        </div>--%>
     </div>
 
 
