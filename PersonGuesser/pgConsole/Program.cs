@@ -14,8 +14,14 @@ namespace pgConsole
         static void Main(string[] args)
         {
             IGamePlugin plugin = new ConsolePlugin(new InteractionModule());
-            plugin.Run();
-            Console.WriteLine("Plugin ended. Exiting.");
+            try
+            {
+                plugin.Run();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Plugin ended. Exiting.");
+            }
         }
     }
 }

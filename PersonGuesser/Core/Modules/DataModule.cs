@@ -102,14 +102,17 @@ namespace Core.Modules
 
         public void EndGame()
         {
+            var summary = new GameSummary(_gameData, GuessedGamePerson);
+            UpdatingModule.Instance.UpdateStructures(summary);
             _gameState = GameState.Finished;
+            
         }
 
         public GameSummary GetSummary()
         {
             if (GuessedGamePerson == null)
                 throw new Exception("Error in GetSummary");
-            updatePersonAnswers(GuessedGamePerson);
+            prepareSummaries(GuessedGamePerson);
             return new GameSummary(_gameData, GuessedGamePerson);
         }
     }

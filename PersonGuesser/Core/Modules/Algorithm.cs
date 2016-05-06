@@ -81,7 +81,7 @@ namespace Core.Modules
             var gameQuestion = new GameQuestion()
             {
                 QuestionId = bestQuestion.QuestionId,
-                PersonAnswer = AnswerType.Unknown,
+                SystemAnswer = AnswerType.Unknown,
                 QuestionText = bestQuestion.Text,
                 UserAnswer = AnswerType.Unknown
             };
@@ -101,7 +101,7 @@ namespace Core.Modules
             var gameQuestion = new GameQuestion()
             {
                 QuestionId = bestQuestion.QuestionId,
-                PersonAnswer = AnswerType.Unknown,
+                SystemAnswer = AnswerType.Unknown,
                 QuestionText = bestQuestion.Text,
                 UserAnswer = AnswerType.Unknown
             };
@@ -198,14 +198,14 @@ namespace Core.Modules
             return false;
         }
 
-        private void updatePersonAnswers(GamePerson gamePerson)
+        private void prepareSummaries(GamePerson gamePerson)
         {
             //operate on database, take answers for this GamePerson and add them to QuestionSet
             var answers = _context.GetAnswers(x => x.PersonId == gamePerson.PersonId);
             foreach (var question in _gameData.QuestionSet)
             {
                 var answer = Enumerable.Single<Answer>(answers, x => x.QuestionId == question.QuestionId);
-                question.PersonAnswer = calculateDominatingAnswer(answer.YesCount, answer.NoCount);
+                question.SystemAnswer = calculateDominatingAnswer(answer.YesCount, answer.NoCount);
             }
         }
 

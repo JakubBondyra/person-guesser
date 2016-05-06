@@ -19,35 +19,69 @@ namespace Website
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class GameService
     {
-        private IInteraction _module;
+        private IDictionary<int, IInteraction> _modules;
+        private int _maxToken;
         public GameService()
         {
-            _module = new InteractionModule();
+            _modules = new Dictionary<int, IInteraction>();
         }
 
         [OperationContract]
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json)]
-        public void StartGame ()
+        public int StartGame ()
         {
-            _module.StartGame();
+            var token = _maxToken++;
+            _modules.Add(token, new InteractionModule());
+            _modules[token].StartGame();
+            return token;
         }
 
         [OperationContract]
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json)]
-        public void EndGame()
+        public void EndGame(int token)
         {
-            _module.EndGame();
+            _modules[token]?.EndGame();
         }
 
         [OperationContract]
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json)]
-        public SummaryData GetSummary()
+        public SummaryData GetSummary(int token)
         {
-            var s = _module.GetSummary();
+            var s = _modules[token]?.GetSummary();
             return new SummaryData(s);
+        }
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+            ResponseFormat = WebMessageFormat.Json)]
+        public string AddPerson(string person)
+        {
+            try
+            {
+                return person + "SERVICE";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+    ResponseFormat = WebMessageFormat.Json)]
+        public string AddQuestion(string question)
+        {
+            try
+            {
+                return question + "SERVICE";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         [OperationContract]
@@ -57,27 +91,34 @@ namespace Website
         {
             try
             {
-                switch (answer)
+                var ind = 0;
+                while (answer[ind] >= '0' && answer[ind] <= '9') ind++;
+                var tokenString = answer.Substring(0, ind);
+                var token = int.Parse(tokenString);
+                var txt = answer.Substring(ind, answer.Length-ind);
+                switch (txt)
                 {
                     case "Yes":
-                        _module.SaveAnswer(AnswerType.Yes);
+                        _modules[token]?.SaveAnswer(AnswerType.Yes);
                         break;
                     case "No":
-                        _module.SaveAnswer(AnswerType.No);
+                        _modules[token]?.SaveAnswer(AnswerType.No);
                         break;
                     case "Unknown":
-                        _module.SaveAnswer(AnswerType.Unknown);
+                        _modules[token]?.SaveAnswer(AnswerType.Unknown);
+                        break;
+                    case "Init":
                         break;
                     default:
-                        break;
+                        throw new Exception($"Wrong option -> {txt}");
                 }
 
-                var s = _module.GetStep();
+                var s = _modules[token]?.GetStep();
                 return translateStep(s);
             }
             catch (Exception e)
             {
-                return new StepData() { StepType = "Question", Question = e.Message };
+                return new StepData() { StepType = "Question", Question = e.Message + e.StackTrace};
             }
         }
 
@@ -148,7 +189,7 @@ namespace Website
                 entryList.Add(new EntryData()
                 {
                     QuestionText = entry.QuestionText,
-                    SystemAnswer = entry.PersonAnswer.ToString().Split('.').Last(),
+                    SystemAnswer = entry.SystemAnswer.ToString().Split('.').Last(),
                     UserAnswer = entry.UserAnswer.ToString().Split('.').Last()
                 });
             }

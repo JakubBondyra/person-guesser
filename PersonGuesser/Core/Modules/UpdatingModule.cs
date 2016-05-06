@@ -20,7 +20,8 @@ namespace Core.Modules
                 foreach (var question in data.Entries)
                 {
                     var dbQuestion = context.Questions.Single(x => x.Text == question.QuestionText);
-                    var answer = context.Answers.Single(x => x.QuestionId == dbQuestion.QuestionId);
+                    var answer = context.Answers.Single(x => x.QuestionId == dbQuestion.QuestionId
+                     && x.PersonId == data.GuessedGamePerson.PersonId);
                     answer.NoCount = question.UserAnswer == AnswerType.No
                         ? answer.NoCount + 1
                         : answer.NoCount;

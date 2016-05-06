@@ -1,4 +1,6 @@
 ﻿
+var token = -1;
+
 $(document).ready(function(e) {
     displayStartScreen();
 });
@@ -80,19 +82,29 @@ function displayEndScreen(text) {
     $('#game').append($('<br/>'));
     $('#game').append($('<br/>'));
     var buttonRow = $('<div class="row"></div>');
-    var colyes = $('<div class="col-md-4"></div>');
+
+    var colyes = $('<div class="col-md-3"></div>');
     var byes = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="sendSummaryDemand()">Podsumowanie</div>');
     colyes.append(byes);
-    var coldk = $('<div class="col-md-4"></div>')
-    var bdk = $('<div class="btn btn-primary btn-lg btn-block mybutton">Pozostałe</div>');
-    coldk.append(bdk);
-    var colno = $('<div class="col-md-4"></div>');
+
+    var colap = $('<div class="col-md-3"></div>');
+    var bap = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="displayAddPerson()">Dodaj osobę</div>');
+    colap.append(bap);
+
+    var colaq = $('<div class="col-md-3"></div>');
+    var baq = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="displayAddQuestion()">Dodaj pytanie</div>');
+    colaq.append(baq);
+
+    var colno = $('<div class="col-md-3"></div>');
     var dno = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="endGame()">Restart</div>');
     colno.append(dno);
+
     buttonRow.append(colyes);
-    buttonRow.append(coldk);
+    buttonRow.append(colap);
+    buttonRow.append(colaq);
     buttonRow.append(colno);
     $('#game').append(buttonRow);
+    $('#game').append($('<div id="adding"></div>'));
     $('#game').append($('<div id="summary"></div>'));
 }
 
@@ -117,6 +129,32 @@ function displaySummaryScreen(summary) {
     }
 }
 
+function displayAddPerson() {
+    var form = $('<form></form>');
+    form.append($('<input id="personText" type="text"></input>'));
+    form.append($('<div placeholder="osoba" class="btn btn-primary btn-lg btn-block mybutton" onclick="addPerson()">Dodaj osobę</div>'));
+    $('#adding').empty();
+    $('#adding').append(form);
+}
+
+function displayAddQuestion() {
+    var form = $('<form></form>');
+    form.append($('<input id="questionText" placeholder="pytanie" type="text"></input>'));
+    form.append($('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="addQuestion()">Dodaj pytanie</div>'));
+    $('#adding').empty();
+    $('#adding').append(form);
+}
+
+function addPerson() {
+    var data = $('#personText').val();
+    ajaxCall('GameService.svc/AddPerson', data, function(x) { alert(x.d); });
+}
+
+function addQuestion() {
+    var data = $('#questionText').val();
+    ajaxCall('GameService.svc/AddQuestion', data, function (x) { alert(x.d); });
+}
+
 function sendYesAnswer() {
     sendAnswer("Yes");
 }
@@ -130,19 +168,18 @@ function sendDkAnswer() {
 }
 
 function sendAnswer(answer) {
-    ajaxCall('/GameService.svc/GetStep', '{"answer":"'+answer+'"}', handleStep);
+    ajaxCall('/GameService.svc/GetStep', '{"answer":"'+token+answer+'"}', handleStep);
 }
 
 function sendSummaryDemand() {
-    ajaxCall('/GameService.svc/GetSummary', '', handleSummary);
+    ajaxCall('/GameService.svc/GetSummary', '{"token":"'+ token+ '"}', handleSummary);
 }
 
 function initializeGame() {
-    ajaxCall('/GameService.svc/StartGame', ' ', null);
-    ajaxCall('/GameService.svc/GetStep', '{"answer":"Init"}', handleStep);
+    ajaxCall('/GameService.svc/StartGame', '', saveToken);
 }
 function endGame() {
-    ajaxCall('/GameService.svc/EndGame', '', null);
+    ajaxCall('/GameService.svc/EndGame', '{"token":"'+ token+ '"}', null);
     displayStartScreen();
 }
 
@@ -155,6 +192,11 @@ function handleStep(step) {
         displayGameScreen(step.d.Question);
     else if (step.d.StepType == 'Guessing')
         displayGameScreen(step.d.Question);
+}
+
+function saveToken(data) {
+    token = data.d;
+    ajaxCall('/GameService.svc/GetStep', '{"answer":"' + token + 'Init"}', handleStep);
 }
 
 function handleSummary(summary) {

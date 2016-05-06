@@ -33,7 +33,7 @@ namespace Core.UserInterfaces.ConsoleInterface
                         Start();
                         break;
                     case 'n':
-                        return;
+                        throw new Exception("exit");
                     default:
                         continue;
                 }
@@ -65,7 +65,7 @@ namespace Core.UserInterfaces.ConsoleInterface
                 var a = ExtractAnswer();
                 if (a == AnswerType.Yes)
                     DisplaySummary();
-
+                Console.WriteLine("Saving answers to database...");
                 _module.EndGame();
                 Run();
             }
@@ -98,7 +98,7 @@ namespace Core.UserInterfaces.ConsoleInterface
             foreach (var entry in summary.Entries)
             {
                 Console.WriteLine("{0}: {1} - database: {2}, user: {3}",i++, entry.QuestionText, 
-                    entry.PersonAnswer, entry.UserAnswer);
+                    entry.SystemAnswer, entry.UserAnswer);
             }
         }
 

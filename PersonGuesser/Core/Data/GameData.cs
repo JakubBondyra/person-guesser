@@ -20,7 +20,7 @@ namespace Core.Data
     {
         public int QuestionId;
         public string QuestionText;
-        public AnswerType PersonAnswer;
+        public AnswerType SystemAnswer;
         public AnswerType UserAnswer;
     }
 
