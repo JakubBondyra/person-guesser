@@ -118,7 +118,7 @@ namespace Website
             }
             catch (Exception e)
             {
-                return new StepData() { StepType = "Question", Question = e.Message + e.StackTrace};
+                return new StepData() { StepType = "Defeat"};
             }
         }
 
