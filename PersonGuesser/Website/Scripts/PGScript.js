@@ -131,8 +131,8 @@ function displaySummaryScreen(summary) {
 
 function displayAddPerson() {
     var form = $('<form></form>');
-    form.append($('<input id="personText" type="text"></input>'));
-    form.append($('<div placeholder="osoba" class="btn btn-primary btn-lg btn-block mybutton" onclick="addPerson()">Dodaj osobę</div>'));
+    form.append($('<input id="personText" placeholder="osoba" type="text"></input>'));
+    form.append($('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="addPerson()">Dodaj osobę</div>'));
     $('#adding').empty();
     $('#adding').append(form);
 }
@@ -147,12 +147,12 @@ function displayAddQuestion() {
 
 function addPerson() {
     var data = $('#personText').val();
-    ajaxCall('GameService.svc/AddPerson', data, function(x) { alert(x.d); });
+    ajaxCall('/GameService.svc/AddPerson', '{"person": "'+data+'"}', function(x) { alert(x.d); });
 }
 
 function addQuestion() {
     var data = $('#questionText').val();
-    ajaxCall('GameService.svc/AddQuestion', data, function (x) { alert(x.d); });
+    ajaxCall('/GameService.svc/AddQuestion', '{"question": "' + data + '"}', function (x) { alert(x.d); });
 }
 
 function sendYesAnswer() {
