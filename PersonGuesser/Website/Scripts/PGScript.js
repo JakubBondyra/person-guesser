@@ -73,11 +73,21 @@ function displayGameScreen(text) {
     $('#game').append(buttonRow);
 }
 
-function displayEndScreen(text) {
+function displayEndScreen(txt, image) {
     //displaying ending screen (with text)
     $('#game').empty();
+    if (image != null) {
+        var i = $('<div class="row" style="text-align: center; "></div>');
+        var img = new Image();
+        img.style.display = 'inline-block';
+        img.style.margin = '0 5px';
+        img.height = 400;
+        img.src = 'data:image/png;base64,' + image;
+        i.append(img);
+        $('#game').append(i);
+    }
     var r = $('<div class="row"></div>');
-    r.append('<h2 class="text-center">'+text+'</h2>');
+    r.append('<h2 class="text-center">'+txt+'</h2>');
     $('#game').append(r);
     $('#game').append($('<br/>'));
     $('#game').append($('<br/>'));
@@ -185,9 +195,9 @@ function endGame() {
 
 function handleStep(step) {
     if (step.d.StepType == "Defeat")
-        displayEndScreen('I have lost.')
-    else if (step.d.StepType== "Victory")
-        displayEndScreen('I have guessed correctly.')
+        displayEndScreen('Przegrałem.')
+    else if (step.d.StepType == "Victory")
+        displayEndScreen('Zgadłem - to ' + step.d.Question, step.d.Image);
     else if (step.d.StepType == 'Question')
         displayGameScreen(step.d.Question);
     else if (step.d.StepType == 'Guessing')

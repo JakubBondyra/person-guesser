@@ -31,6 +31,13 @@
 
     public class VictoryStep : Step
     {
-        
+        public string PersonName;
+        public string Image;
+
+        public VictoryStep(string personName, string image)
+        {
+            Image = image;
+            PersonName = personName;
+        }
     }
 }

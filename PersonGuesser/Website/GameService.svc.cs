@@ -118,7 +118,7 @@ namespace Website
             }
             catch (Exception e)
             {
-                return new StepData() { StepType = "Defeat"};
+                return new StepData() { StepType = "Question", Question = e.Message+e.StackTrace};
             }
         }
 
@@ -130,7 +130,8 @@ namespace Website
             }
             else if (s.GetType() == typeof(VictoryStep))
             {
-                return new StepData() {StepType = "Victory"};
+                var s1 = (VictoryStep) s;
+                return new StepData() {StepType = "Victory", Question = s1.PersonName, Image = s1.Image};
             }
             else if (s.GetType() == typeof(GuessingStep))
             {
@@ -158,6 +159,8 @@ namespace Website
         public string StepType { get; set; }
         [DataMember]
         public string Question { get; set; }
+        [DataMember]
+        public string Image { get; set; }
     }
 
     [DataContract]

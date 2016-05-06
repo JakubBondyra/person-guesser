@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Net.Mime;
 using DataAccess.Entities;
 
 namespace DataAccess.Migrations
@@ -15,6 +18,22 @@ namespace DataAccess.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
+        private string imageToBase64(string path)
+        {
+            using (Image image = Image.FromFile(path))
+            {
+                using (MemoryStream m = new MemoryStream())
+                {
+                    image.Save(m, image.RawFormat);
+                    byte[] imageBytes = m.ToArray();
+
+                    // Convert byte[] to Base64 String
+                    string base64String = Convert.ToBase64String(imageBytes);
+                    return base64String;
+                }
+            }
+        }
+
         protected override void Seed(DataAccess.PgContext context)
         {
             //tutaj seed
@@ -23,161 +42,193 @@ namespace DataAccess.Migrations
                 new Person()
                 {
                     Name = "Mieszko I",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\mieszko1.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Bolesław Chrobry",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\bolek1.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Mieszko II Lambert",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\mieszko2.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Bolesław Krzywousty",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\bolek2.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Władysław Łokietek",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\wladzio1.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Kazimierz Wielki",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\kazio1.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Ludwik Andegaweńczyk",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\andeg1.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Jadwiga Andegaweńska",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\andeg2.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Władysław II Jagiełło",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\wladzio2.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Władysław III Warneńczyk",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\wladzio3.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Kazimierz IV Jagiellończyk",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\kazio2.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Jan I Olbracht",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\jan2.gif"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Aleksander II Jagiellończyk",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\aleks1.gif"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Zygmunt I Stary",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\zygi1.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Zygmunt II August",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\zygi2.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Henryk III Walezy",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\walezy.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Stefan Batory",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\batory.jpeg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Zygmunt III Waza",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\zygi3.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Władysław IV Waza",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\wladzio4.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Jan II Kazimierz",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\jan2.jpeg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Michał Korybut Wiśniowiecki",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\michal.gif"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Jan III Sobieski",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\jan3.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "August II Mocny",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\august2.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "August III Sas",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\august3.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Stanisław Leszczyński",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\stasio.gif"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Stanisław August Poniatowski",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\stasio2.PNG"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Lech Wałęsa",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\bolek3.jpeg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Ignacy Mościcki",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\ignacy.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Aleksander Kwaśniewski",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\kwachu.jpeg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Bronisław Komorowski",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\bronek.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Andrzej Duda",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\duda.jpg"),
                     Count = 1
                 },
                 new Person()
                 {
                     Name = "Lech Kaczyński",
+                    Image = imageToBase64(@"C:\Users\Jakub\images\lech.jpg"),
                     Count = 1
                 }
             };

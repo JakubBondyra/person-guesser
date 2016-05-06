@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,6 +57,10 @@
     <Compile Include="Migrations\201604191300164_init.Designer.cs">
       <DependentUpon>201604191300164_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605062154443_imagesHandling.cs" />
+    <Compile Include="Migrations\201605062154443_imagesHandling.Designer.cs">
+      <DependentUpon>201605062154443_imagesHandling.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PgContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,6 +74,44 @@
     <EmbeddedResource Include="Migrations\201604191300164_init.resx">
       <DependentUpon>201604191300164_init.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605062154443_imagesHandling.resx">
+      <DependentUpon>201605062154443_imagesHandling.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\aleks1.gif" />
+    <Content Include="images\andeg1.jpg" />
+    <Content Include="images\andeg2.jpg" />
+    <Content Include="images\august2.jpg" />
+    <Content Include="images\august3.jpg" />
+    <Content Include="images\batory.jpeg" />
+    <Content Include="images\bolek1.jpg" />
+    <Content Include="images\bolek2.jpg" />
+    <Content Include="images\bolek3.jpeg" />
+    <Content Include="images\bronek.jpg" />
+    <Content Include="images\duda.jpg" />
+    <Content Include="images\ignacy.jpg" />
+    <Content Include="images\jan2.gif" />
+    <Content Include="images\jan2.jpeg" />
+    <Content Include="images\jan3.jpg" />
+    <Content Include="images\kazio1.jpg" />
+    <Content Include="images\kazio2.jpg" />
+    <Content Include="images\kwachu.jpeg" />
+    <Content Include="images\kwachu.jpg" />
+    <Content Include="images\lech.jpg" />
+    <Content Include="images\michal.gif" />
+    <Content Include="images\mieszko1.jpg" />
+    <Content Include="images\mieszko2.jpg" />
+    <Content Include="images\stasio.gif" />
+    <Content Include="images\stasio2.PNG" />
+    <Content Include="images\walezy.jpg" />
+    <Content Include="images\wladzio1.jpg" />
+    <Content Include="images\wladzio2.jpg" />
+    <Content Include="images\wladzio3.jpg" />
+    <Content Include="images\wladzio4.jpg" />
+    <Content Include="images\zygi1.jpg" />
+    <Content Include="images\zygi2.jpg" />
+    <Content Include="images\zygi3.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

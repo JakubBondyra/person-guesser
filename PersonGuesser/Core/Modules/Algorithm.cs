@@ -64,9 +64,14 @@ namespace Core.Modules
             else if (_gameState == GameState.Finished)
             {
                 //game finished. only occurs when system has guessed correctly
-                return new VictoryStep();
+                return new VictoryStep(GuessedGamePerson.Name, getImage(GuessedGamePerson.PersonId));
             }
             throw new Exception("compute next step: invalid something");
+        }
+
+        private string getImage(int personId)
+        {
+            return _context.GetPersons(x => x.PersonId == personId).Single().Image;
         }
 
         private GameQuestion retrieveRegularQuestion()

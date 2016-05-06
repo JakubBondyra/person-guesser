@@ -10,6 +10,7 @@ namespace DataAccess.Entities
         public int PersonId { get; set; }
         public string Name { get; set; }
         public int Count { get; set; }
+        public string Image { get; set; }
         public ICollection<Answer> Answers { get; set; } 
     }
 }
