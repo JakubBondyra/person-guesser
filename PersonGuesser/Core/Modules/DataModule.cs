@@ -67,15 +67,26 @@ namespace Core.Modules
             {
                 _currentGameQuestion.UserAnswer = answer;
                 _gameData.QuestionSet.Add(_currentGameQuestion);
+                if (_currentGameQuestion.Unforgiveable)
+                    _gameData.PeopleSet = _gameData.PeopleSet.Where(x => x.CurrentAnswer == answer).ToList();
+
                 _currentGameQuestion = null;
                 _gameData.QuestionsAsked++;
-                foreach (var person in _gameData.PeopleSet)
+
+                if (_gameData.PeopleSet.Count == 0)
                 {
-                    if (person.CurrentAnswer == AnswerType.Unknown || answer == AnswerType.Unknown)
-                        continue;
-                    if (person.CurrentAnswer == answer)
+                    _gameState = GameState.Defeated;
+                }
+                else
+                {
+                    foreach (var person in _gameData.PeopleSet)
                     {
-                        person.CorrectAnswers++;
+                        if (person.CurrentAnswer == AnswerType.Unknown || answer == AnswerType.Unknown)
+                            continue;
+                        if (person.CurrentAnswer == answer)
+                        {
+                            person.CorrectAnswers++;
+                        }
                     }
                 }
             }

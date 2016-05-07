@@ -39,9 +39,11 @@ namespace Core.Modules
         {
             using (var context = new PgContext())
             {
-                var newGame = new PastGame();
-                newGame.QuestionsAsked = data.QuestionsAsked;
-                newGame.Won = won;
+                var newGame = new PastGame
+                {
+                    QuestionsAsked = data.QuestionsAsked,
+                    Won = won
+                };
                 context.PastGames.Add(newGame);
                 context.SaveChanges();
             }
@@ -52,7 +54,7 @@ namespace Core.Modules
             using (var context = new PgContext())
             {
                 context.Questions.Add(
-                    new DataAccess.Entities.Question()
+                    new Question()
                     {
                         Text = text,
                         Unforgiveable = false
@@ -90,6 +92,21 @@ namespace Core.Modules
         {
             using (var context = new PgContext())
             {
+                //jezeli jest taka osoba juz, to nie dodawaj jej na pałę:
+                if (context.Persons.Any(x => String.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase)))
+                {
+                    var person = context.Persons.Single(x => x.Name == name);
+                    gameSummary.GuessedGamePerson = new GamePerson()
+                    {
+                        CorrectAnswers = -1,
+                        Name = person.Name,
+                        OccurenceCount = person.Count,
+                        PersonId = person.PersonId
+                    };
+                    UpdateStructures(gameSummary);
+                    return;
+                }
+                // w pp. dodaj ją na pałę:
                 context.Persons.Add(new Person()
                 {
                     Name = name,
@@ -100,9 +117,9 @@ namespace Core.Modules
                 var questions = context.Questions.ToList();
                 foreach (var question in questions)
                 {
-                    if (gameSummary.Entries.Any(x => x.QuestionText == question.Text))
+                    if (gameSummary.Entries.Any(x => x.QuestionId == question.QuestionId))
                     {
-                        var summaryQuestion = gameSummary.Entries.Single(x => x.QuestionText == question.Text);
+                        var summaryQuestion = gameSummary.Entries.Single(x => x.QuestionId == question.QuestionId);
                         context.Answers.Add(new Answer()
                         {
                             NoCount = summaryQuestion.UserAnswer == AnswerType.No ? 1 : 0,

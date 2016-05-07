@@ -20,6 +20,7 @@ namespace Core.Data
     {
         public int QuestionId;
         public string QuestionText;
+        public bool Unforgiveable;
         public AnswerType SystemAnswer;
         public AnswerType UserAnswer;
     }

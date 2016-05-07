@@ -65,7 +65,7 @@ namespace Core.Modules
             }
             else if (_gameState == GameState.Defeated)
             {
-                return new DefeatStep("Przegrałem. Zresztą stało się to jakiś czas temu, bondyra napraw to.");
+                return new DefeatStep("Przegrałem. Dla twoich odpowiedzi nie mogę wyznaczyć osoby.");
             }
             throw new Exception("compute next step: invalid something");
         }
@@ -89,7 +89,8 @@ namespace Core.Modules
                 QuestionId = bestQuestion.QuestionId,
                 SystemAnswer = AnswerType.Unknown,
                 QuestionText = bestQuestion.Text,
-                UserAnswer = AnswerType.Unknown
+                UserAnswer = AnswerType.Unknown,
+                Unforgiveable = bestQuestion.Unforgiveable
             };
             _currentGameQuestion = gameQuestion;
             return gameQuestion;
@@ -109,7 +110,8 @@ namespace Core.Modules
                 QuestionId = bestQuestion.QuestionId,
                 SystemAnswer = AnswerType.Unknown,
                 QuestionText = bestQuestion.Text,
-                UserAnswer = AnswerType.Unknown
+                UserAnswer = AnswerType.Unknown,
+                Unforgiveable = true
             };
             _currentGameQuestion = gameQuestion;
             return gameQuestion;
@@ -123,9 +125,13 @@ namespace Core.Modules
             //all persons considered in game
             var persons = _context.GetPersons(
                 (x => Enumerable.Any<GamePerson>(_gameData.PeopleSet, y => y.PersonId == x.PersonId)));
-
+            Random r = new Random();
             Question bestQuestion = null;
             var bestSum = int.MaxValue;
+            var personCount = _context.GetAllPersons().Count;
+            //wyznaczanie najlepszego pytania (wraz z pewną heurystyczną losowością)
+            //możliwe też jest niewyznaczenie najlepszego pytania, ale takiego które ostatnio zostało
+            //dodane do bazy danych (możliwość zadana przez ziarno losowości)
             foreach (var question in questions)
             {
                 var preciseAnswers = _context.GetAnswers(x => x.QuestionId == question.QuestionId)
@@ -136,7 +142,22 @@ namespace Core.Modules
                     bestSum = Math.Abs(preciseAnswers);
                     bestQuestion = question;
                 }
+                if (Math.Abs(preciseAnswers) == bestSum && r.Next(0,1) == 0)
+                {
+                    bestSum = Math.Abs(preciseAnswers);
+                    bestQuestion = question;
+                }
+                if (r.Next(1, 10) < 5)
+                {
+                    var unknownCount = _context.GetAnswers(x => x.NoCount == 0 && x.YesCount == 0).Count;
+                    if (2*unknownCount > personCount)
+                    {
+                        bestQuestion = question;
+                        break;
+                    }
+                }
             }
+
             foreach (var person in _gameData.PeopleSet)
             {
                 var answer = _context.GetAnswers(x => x.PersonId == person.PersonId 

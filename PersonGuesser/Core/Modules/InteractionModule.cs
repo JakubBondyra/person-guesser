@@ -46,6 +46,14 @@ namespace Core.Modules
         public void AddNewPerson(string name)
         {
             UpdatingModule.Instance.AddNewPerson(name, _dataModule.GetSummary());
+            _dataModule.GuessedGamePerson = new GamePerson()
+            {
+                CorrectAnswers = 0,
+                CurrentAnswer = AnswerType.Unknown,
+                Name = name,
+                OccurenceCount = 1,
+                PersonId = -1
+            };
         }
     }
 }

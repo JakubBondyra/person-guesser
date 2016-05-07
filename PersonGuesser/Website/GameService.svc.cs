@@ -152,7 +152,7 @@ namespace Website
             else
             {
                 var s1 = (QuestionStep) s;
-                return new StepData() {DisplayText = s1.QuestionText, StepType = "DisplayText"};
+                return new StepData() {DisplayText = s1.QuestionText, StepType = "Question"};
             }
         }
     }
@@ -203,8 +203,8 @@ namespace Website
                 entryList.Add(new EntryData()
                 {
                     QuestionText = entry.QuestionText,
-                    SystemAnswer = entry.SystemAnswer.ToString().Split('.').Last(),
-                    UserAnswer = entry.UserAnswer.ToString().Split('.').Last()
+                    SystemAnswer = entry.SystemAnswer.ToString().Split('.').Last() == "Yes" ? "Tak" : "Nie",
+                    UserAnswer = entry.UserAnswer.ToString().Split('.').Last() == "Yes" ? "Tak" : "Nie"
                 });
             }
             Entries = entryList.ToArray();

@@ -1,5 +1,6 @@
 ﻿
 var token = -1;
+var disabled = 0;
 
 $(document).ready(function(e) {
     displayStartScreen();
@@ -22,7 +23,7 @@ function displayStartScreen() {
     //displaying first screen
     $('#game').empty();
     var r = $('<div class="row"></div>');
-    r.append('<h2 class="text-center mytext">Rozpocznij nową grę</h2>');
+    r.append('<h2 class="text-center mytext" id="startGameText">Rozpocznij nową grę</h2>');
     $('#game').append(r);
     $('#game').append($('<br/>'));
     $('#game').append($('<br/>'));
@@ -130,34 +131,45 @@ function appendAddQuestion() {
 function displaySummaryScreen(summary) {
     //displaying summary screen
     //append entries
-    if ($('#summary').children().length > 0)
+    if ($('#summary').children().length > 0) {
+        $('#summary').empty();
         return;
+    }
     $('#summary').append($("<strong class=\"mytext\">Podsumowanie dla : " + summary.GuessedName + "</strong>"));
     var tr = $('<div class="row"></div>');
     tr.append($('<div class="col-md-8 sumhs">Pytanie</div>'));
-    tr.append($('<div class="col-md-2 sumusr">Ty:</div>'));
-    tr.append($('<div class="col-md-2 sumsys">W systemie:</div>'));
+    tr.append($('<div class="col-md-2 sumhs">Ty:</div>'));
+    tr.append($('<div class="col-md-2 sumhs">W systemie:</div>'));
     $('#summary').append(tr);
 
     for (var i = 0; i < summary.Entries.length; i++) {
-        tr = $('<div class="row"></div>');
-        tr.append($('<div class="col-md-8 sumhs">' + summary.Entries[i].QuestionText + '</div>'));
-        tr.append($('<div class="col-md-2 sumusr">' + summary.Entries[i].UserAnswer + '</div>'));
-        tr.append($('<div class="col-md-2 sumsys">' + summary.Entries[i].SystemAnswer + '</div>'));
+        tr = $('<div class="row myrow"></div>');
+        var answerStyle = summary.Entries[i].UserAnswer == summary.Entries[i].SystemAnswer ?
+            "sumusr" : "sumsys";
+        tr.append($('<div class="col-md-8 '+ answerStyle +'">' + summary.Entries[i].QuestionText + '</div>'));
+        tr.append($('<div class="col-md-2 ' + answerStyle + '">' + summary.Entries[i].UserAnswer + '</div>'));
+        tr.append($('<div class="col-md-2 ' + answerStyle + '">' + summary.Entries[i].SystemAnswer + '</div>'));
         $('#summary').append(tr);
     }
 }
 
 function displayAddPerson() {
+    if ($('#adding').children().length > 0) {
+        $('#adding').empty();
+        return;
+    }
     var form = $('<form></form>');
     form.append($('<p class="mytextsmall">Pomoż usprawnić system. Dodaj osobę, o której myślałeś:</p>'));
     form.append($('<input id="personText" placeholder="osoba" type="text"></input>'));
     form.append($('<div class="btn btn-primary btn-lg btn-block mybutton myyes" onclick="addPerson()">Wyślij</div>'));
-    $('#adding').empty();
     $('#adding').append(form);
 }
 
 function displayAddQuestion() {
+    if ($('#adding').children().length > 0) {
+        $('#adding').empty();
+        return;
+    }
     var form = $('<form></form>');
     form.append($('<input id="questionText" placeholder="pytanie" type="text">' +
         '</input>'));
@@ -171,23 +183,23 @@ function displayAddQuestion() {
     tr.append($('<div class="col-md-2 mytextsmall">Nie</div>'));
     form.append(tr);
     form.append($('<div class="btn btn-primary btn-lg btn-block mybutton myyes" onclick="addQuestion()">Wyślij</div>'));
-    $('#adding').empty();
     $('#adding').append(form);
 }
 
 function addPerson() {
     var data = $('#personText').val();
-    ajaxCall('/GameService.svc/AddPerson', '{"person": "' + data + '", "token": "' + token + '"}', function (x) { alert('dane zostały przesłane'); });
+    alert("na razie funkcjonalność niedostępna. nie chcę by jakiś kretyn rozwalił mi bazę.");
+    //ajaxCall('/GameService.svc/AddPerson', '{"person": "' + data + '", "token": "' + token + '"}', function (x) { alert('dane zostały przesłane'); });
     appendAddQuestion();
 }
 
 function addQuestion() {
     var data = $('#questionText').val();
     var answer = $('#yesRadio').is(':checked') ? 1 : 0;
-    alert("odpowiedź: " + answer);
+    alert("na razie funkcjonalność niedostępna. nie chcę by jakiś kretyn rozwalił mi bazę.");
     //ajaxCall('/GameService.svc/AddQuestion', '{"question": "' + data + '", "answer": "' + answer + '", "token": "'+token+'"}',
         //function (x) { alert('dane zostały przesłane'); });
-    //appendAddQuestion();
+    appendAddQuestion();
 }
 
 function sendYesAnswer() {
@@ -211,7 +223,13 @@ function sendSummaryDemand() {
 }
 
 function initializeGame() {
-    ajaxCall('/GameService.svc/StartGame', '', saveToken);
+    if (disabled == 0) {
+        disabled = 1;
+        $('#startGameText').empty();
+        $('#startGameText').append('Trwa inicjalizacja sesji rozgrywki. Baza danych jest lipna, więc chwilkę to potrwa.');
+        ajaxCall('/GameService.svc/StartGame', '', saveToken);
+    }
+
 }
 function endGame() {
     ajaxCall('/GameService.svc/EndGame', '{"token":"'+ token+ '"}', null);
@@ -233,6 +251,7 @@ function handleStep(step) {
 
 function saveToken(data) {
     token = data.d;
+    disabled = 0;
     ajaxCall('/GameService.svc/GetStep', '{"answer":"Init"' + ', "token": "' + token + '"}', handleStep);
 }
 
@@ -246,6 +265,8 @@ function displayStatistics() {
 
 function handleStatistics(data) {
     var stats = data.d;
+    $('#statsHeader').empty();
+    $('#statsHeader').append('Statystyki systemu');
     var div = $('#statistics');
     div.empty();
 
