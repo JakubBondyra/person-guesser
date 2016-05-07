@@ -18,6 +18,7 @@ namespace Core.Modules
         private GameQuestion _currentGameQuestion;
         private UnitOfWork _context;
         public GamePerson GuessedGamePerson = null;
+        private int guessingLimit = 3;
 
         public DataModule(GameData gameData, UnitOfWork context)
         {
@@ -102,10 +103,9 @@ namespace Core.Modules
 
         public void EndGame()
         {
+            if (_gameState != GameState.Finished) return;
             var summary = new GameSummary(_gameData, GuessedGamePerson);
             UpdatingModule.Instance.UpdateStructures(summary);
-            _gameState = GameState.Finished;
-            
         }
 
         public GameSummary GetSummary()

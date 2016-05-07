@@ -57,9 +57,7 @@ namespace Core.Modules
                 _gameData.PeopleSet.Remove(GuessedGamePerson);
                 GuessedGamePerson = null;
                 _gameState = GameState.InProgress;
-                //TODO: introduce some guessing limit
-                //some recursion should simplify everything
-                return computeNextStep();
+                return --guessingLimit < 0 ? new DefeatStep() : computeNextStep();
             }
             else if (_gameState == GameState.Finished)
             {

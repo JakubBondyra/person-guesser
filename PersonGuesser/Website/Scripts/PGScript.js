@@ -47,7 +47,7 @@ function displayGameScreen(text) {
     $('#game').empty();
     var r = $('<div class="row"></div>');
     var c = $('<div class="col-md-4"></div>');
-    c.append($('<div class="btn btn-primary btn-lg btn-danger mybutton">Powrót</div>'));
+    c.append($('<div class="btn btn-primary btn-lg btn-danger mybutton" onclick="endGame()">Zakończ</div>'));
     r.append(c);
     r.append($('<div class="col-md-4"></div>'));
     r.append($('<div class="col-md-4"></div>'));
