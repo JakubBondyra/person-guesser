@@ -149,7 +149,8 @@ namespace Core.Modules
                 }
                 if (r.Next(1, 10) < 5)
                 {
-                    var unknownCount = _context.GetAnswers(x => x.NoCount == 0 && x.YesCount == 0).Count;
+                    var unknownCount = _context.GetAnswers(x => x.QuestionId == question.QuestionId && 
+                    x.NoCount == 0 && x.YesCount == 0).Count;
                     if (2*unknownCount > personCount)
                     {
                         bestQuestion = question;
