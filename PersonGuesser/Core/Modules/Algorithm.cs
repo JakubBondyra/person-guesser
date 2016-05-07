@@ -10,11 +10,10 @@ namespace Core.Modules
     {
         private Step computeNextStep()
         {
-            //TODO, question limit must be done neatly:
             if (_gameData.QuestionsAsked == 40)
             {
                 _gameState = GameState.Finished;
-                return new DefeatStep();
+                return new DefeatStep("Przegrałem. Przekroczyłem limit pytań (40).");
             }
 
             if (_gameState == GameState.Initialized)
@@ -25,7 +24,7 @@ namespace Core.Modules
                 if (question == null)
                 {
                     _gameState = GameState.Finished;
-                    return new DefeatStep();
+                    return new DefeatStep("Przegrałem. Nie udało się mi wyznaczyć pierwszego pytania, wstyd.");
                 }
 
                 _currentGameQuestion = question;
@@ -46,7 +45,7 @@ namespace Core.Modules
                     if (question == null)
                     {
                         _gameState = GameState.Defeated;
-                        return new DefeatStep();
+                        return new DefeatStep("Przegrałem. Nie ma już więcej pytań w bazie.");
                     }
                     _currentGameQuestion = question;
                     return new QuestionStep(question.QuestionText);
@@ -57,7 +56,7 @@ namespace Core.Modules
                 _gameData.PeopleSet.Remove(GuessedGamePerson);
                 GuessedGamePerson = null;
                 _gameState = GameState.InProgress;
-                return --guessingLimit < 0 ? new DefeatStep() : computeNextStep();
+                return --guessingLimit < 0 ? new DefeatStep("Przegrałem. Próbowałem zgadywać zbyt dużo razy") : computeNextStep();
             }
             else if (_gameState == GameState.Finished)
             {
@@ -66,7 +65,7 @@ namespace Core.Modules
             }
             else if (_gameState == GameState.Defeated)
             {
-                return new DefeatStep();
+                return new DefeatStep("Przegrałem. Zresztą stało się to jakiś czas temu, bondyra napraw to.");
             }
             throw new Exception("compute next step: invalid something");
         }
@@ -184,24 +183,21 @@ namespace Core.Modules
 
         private bool canGuess(ICollection<GamePerson> peopleSet)
         {
-            Random r = new Random();
-            if (r.Next(10) < 6)
-                return false;
             //if one of persons is very distinguishable from the others return true
             if (_gameData.QuestionsAsked < 4)
                 return false;
 
-            var correctCounts = Enumerable.Select<GamePerson, double>(_gameData.PeopleSet, x => (double)x.CorrectAnswers/(double)x.OccurenceCount);
+            var correctCounts = Enumerable.Select<GamePerson, double>(_gameData.PeopleSet, x => (double)x.CorrectAnswers/(double)_gameData.QuestionsAsked);
             var max = correctCounts.Max();
-            if (_gameData.QuestionsAsked < 10 && max > 0.89f)
+            var maxCount = correctCounts.Count(x => Math.Round(max, 2) == Math.Round(x, 2));
+            if (_gameData.QuestionsAsked < 8 && maxCount == 1)
                 return true;
-            else if (_gameData.QuestionsAsked < 20 && max > 0.79f)
+            if (_gameData.QuestionsAsked > 7 && max > 0.79f && maxCount < 3)
                 return true;
-            else if (_gameData.QuestionsAsked < 30 && max > 0.74f)
+            if (_gameData.QuestionsAsked > 11 && max > 0.74f && maxCount < 3)
                 return true;
-            else if (_gameData.QuestionsAsked >= 30 && max > 0.72f)
+            if (_gameData.QuestionsAsked > 15)
                 return true;
-
             return false;
         }
 

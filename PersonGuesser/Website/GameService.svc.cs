@@ -124,7 +124,11 @@ namespace Website
             }
             catch (Exception e)
             {
-                return new StepData() { StepType = "Defeat"};
+                return new StepData()
+                {
+                    StepType = "Defeat", DisplayText = "Przegrałem, bo poleciał wyjątek w systemie ("+e.Message
+                    + "). Przyznaj się, robiłeś coś głupiego."
+                };
             }
         }
 
@@ -132,22 +136,23 @@ namespace Website
         {
             if (s.GetType() == typeof (DefeatStep))
             {
-                return new StepData() {StepType = "Defeat"};
+                var s1 = (DefeatStep)s;
+                return new StepData() {StepType = "Defeat", DisplayText = s1.Text};
             }
             else if (s.GetType() == typeof(VictoryStep))
             {
                 var s1 = (VictoryStep) s;
-                return new StepData() {StepType = "Victory", Question = s1.PersonName, Image = s1.Image};
+                return new StepData() {StepType = "Victory", DisplayText = s1.PersonName, Image = s1.Image};
             }
             else if (s.GetType() == typeof(GuessingStep))
             {
                 var s1 = (GuessingStep)s;
-                return new StepData() { Question = s1.GuessText, StepType = "Guessing" };
+                return new StepData() { DisplayText = s1.GuessText, StepType = "Guessing" };
             }
             else
             {
                 var s1 = (QuestionStep) s;
-                return new StepData() {Question = s1.QuestionText, StepType = "Question"};
+                return new StepData() {DisplayText = s1.QuestionText, StepType = "DisplayText"};
             }
         }
     }
@@ -164,7 +169,7 @@ namespace Website
         [DataMember]
         public string StepType { get; set; }
         [DataMember]
-        public string Question { get; set; }
+        public string DisplayText { get; set; }
         [DataMember]
         public string Image { get; set; }
     }
@@ -217,13 +222,16 @@ namespace Website
         public int GameCount { get; set; }
         [DataMember]
         public int WonCount { get; set; }
+        [DataMember]
+        public int AskCount { get; set; }
 
-        public GameStats(Tuple<int,int,int,int> stats)
+        public GameStats(Tuple<int,int,int,int, int> stats)
         {
             PersonCount = stats.Item1;
             QuestionCount = stats.Item2;
             GameCount = stats.Item3;
             WonCount = stats.Item4;
+            AskCount = stats.Item5;
         }
     }
 }

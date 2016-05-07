@@ -126,7 +126,7 @@ namespace Core.Modules
             }
         }
 
-        public static Tuple<int, int, int, int> GetStats()
+        public static Tuple<int, int, int, int, int> GetStats()
         {
             using (var context = new PgContext())
             {
@@ -134,7 +134,9 @@ namespace Core.Modules
                 var wonCount = context.PastGames.Count(x => x.Won);
                 var questionCount = context.Questions.Count();
                 var personCount = context.Persons.Count();
-                return new Tuple<int, int, int, int>(personCount, questionCount, gameCount, wonCount);
+                var askCount = context.PastGames.Sum(x => x.QuestionsAsked);
+                return new Tuple<int, int, int, int, int>(personCount, questionCount, gameCount, 
+                    wonCount, askCount);
             }
         }
     }

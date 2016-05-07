@@ -6,7 +6,12 @@
 
     public class DefeatStep : Step
     {
-        
+        public string Text;
+
+        public DefeatStep(string text)
+        {
+            Text = text;
+        }
     }
 
     public class QuestionStep : Step

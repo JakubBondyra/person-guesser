@@ -48,7 +48,7 @@ namespace Core.Modules
                 {
                     var a = answers.Single(x => x.PersonId == person.PersonId);
                     var dataAnswer = calculateDominatingAnswer(a.YesCount, a.NoCount);
-                    if (dataAnswer == answer)
+                    if (dataAnswer == answer || answer == AnswerType.Unknown)
                     {
                         //unforgiveable question, add to set only in this case
                         _gameData.PeopleSet.Add(new GamePerson()
