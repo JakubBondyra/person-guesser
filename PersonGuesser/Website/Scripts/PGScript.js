@@ -22,7 +22,7 @@ function displayStartScreen() {
     //displaying first screen
     $('#game').empty();
     var r = $('<div class="row"></div>');
-    r.append('<h2 class="text-center">Rozpocznij nową grę</h2>');
+    r.append('<h2 class="text-center mytext">Rozpocznij nową grę</h2>');
     $('#game').append(r);
     $('#game').append($('<br/>'));
     $('#game').append($('<br/>'));
@@ -31,7 +31,7 @@ function displayStartScreen() {
     var byes = $('');
     colyes.append(byes);
     var coldk = $('<div class="col-md-4"></div>')
-    var bdk = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="initializeGame()">Start</div>');
+    var bdk = $('<div class="btn btn-primary btn-lg btn-block mybutton myyes" onclick="initializeGame()">Start</div>');
     coldk.append(bdk);
     var colno = $('<div class="col-md-4"></div>');
     var dno = $('');
@@ -53,19 +53,19 @@ function displayGameScreen(text) {
     r.append($('<div class="col-md-4"></div>'));
     $('#game').append(r);
     r = $('<div class="row"></div>');
-    r.append('<h2 class="text-center">'+text+'</h2>');
+    r.append('<h2 class="text-center mytext">' + text + '</h2>');
     $('#game').append(r);
     $('#game').append($('<br/>'));
     $('#game').append($('<br/>'));
     var buttonRow = $('<div class="row"></div>');
     var colyes = $('<div class="col-md-4"></div>');
-    var byes = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="sendYesAnswer()">Tak</div>');
+    var byes = $('<div class="btn btn-primary btn-lg btn-block mybutton myyes" onclick="sendYesAnswer()">Tak</div>');
     colyes.append(byes);
     var coldk = $('<div class="col-md-4"></div>')
-    var bdk = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="sendDkAnswer()">Nie wiem</div>');
+    var bdk = $('<div class="btn btn-primary btn-lg btn-block mybutton mydk" onclick="sendDkAnswer()">Nie wiem</div>');
     coldk.append(bdk);
     var colno = $('<div class="col-md-4"></div>');
-    var dno = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="sendNoAnswer()">Nie</div>');
+    var dno = $('<div class="btn btn-primary btn-lg btn-block mybutton myno" onclick="sendNoAnswer()">Nie</div>');
     colno.append(dno);
     buttonRow.append(colyes);
     buttonRow.append(coldk);
@@ -87,35 +87,44 @@ function displayEndScreen(txt, image) {
         $('#game').append(i);
     }
     var r = $('<div class="row"></div>');
-    r.append('<h2 class="text-center">'+txt+'</h2>');
+    r.append('<h2 class="text-center mytext">' + txt + '</h2>');
     $('#game').append(r);
     $('#game').append($('<br/>'));
     $('#game').append($('<br/>'));
     var buttonRow = $('<div class="row"></div>');
 
     var colyes = $('<div class="col-md-3"></div>');
-    var byes = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="sendSummaryDemand()">Podsumowanie</div>');
+    var byes = $('<div class="btn btn-primary btn-lg btn-block mybutton mydk" onclick="sendSummaryDemand()">Podsumowanie</div>');
     colyes.append(byes);
 
-    var colap = $('<div class="col-md-3"></div>');
-    var bap = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="displayAddPerson()">Dodaj osobę</div>');
-    colap.append(bap);
-
-    var colaq = $('<div class="col-md-3"></div>');
-    var baq = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="displayAddQuestion()">Dodaj pytanie</div>');
-    colaq.append(baq);
+    var colap = $('<div class="col-md-3" id="addDiv"></div>');
 
     var colno = $('<div class="col-md-3"></div>');
-    var dno = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="endGame()">Restart</div>');
+    var dno = $('<div class="btn btn-primary btn-lg btn-block mybutton myno" onclick="endGame()">Restart</div>');
     colno.append(dno);
 
     buttonRow.append(colyes);
     buttonRow.append(colap);
-    buttonRow.append(colaq);
     buttonRow.append(colno);
     $('#game').append(buttonRow);
     $('#game').append($('<div id="adding"></div>'));
     $('#game').append($('<div id="summary"></div>'));
+}
+
+function appendAddPerson() {
+    var addDiv = $('#addDiv');
+    addDiv.empty();
+    var bap = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="displayAddPerson()">Dodaj osobę</div>');
+    addDiv.append(bap);
+    addDiv.append($('<div id="adding"></div>'));
+}
+
+function appendAddQuestion() {
+    var addDiv = $('#addDiv');
+    addDiv.empty();
+    var baq = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="displayAddQuestion()">Dodaj pytanie</div>');
+    addDiv.append(baq);
+    addDiv.append($('<div id="adding"></div>'));
 }
 
 function displaySummaryScreen(summary) {
@@ -123,7 +132,7 @@ function displaySummaryScreen(summary) {
     //append entries
     if ($('#summary').children().length > 0)
         return;
-    $('#summary').append($("<strong>Osoba - " + summary.GuessedName + "</strong>"));
+    $('#summary').append($("<strong class=\"mytext\">Podsumowanie dla : " + summary.GuessedName + "</strong>"));
     var tr = $('<div class="row"></div>');
     tr.append($('<div class="col-md-8 sumhs">Pytanie</div>'));
     tr.append($('<div class="col-md-2 sumusr">Ty:</div>'));
@@ -142,7 +151,7 @@ function displaySummaryScreen(summary) {
 function displayAddPerson() {
     var form = $('<form></form>');
     form.append($('<input id="personText" placeholder="osoba" type="text"></input>'));
-    form.append($('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="addPerson()">Dodaj osobę</div>'));
+    form.append($('<div class="btn btn-primary btn-lg btn-block mybutton myyes" onclick="addPerson()">Dodaj osobę</div>'));
     $('#adding').empty();
     $('#adding').append(form);
 }
@@ -150,19 +159,25 @@ function displayAddPerson() {
 function displayAddQuestion() {
     var form = $('<form></form>');
     form.append($('<input id="questionText" placeholder="pytanie" type="text"></input>'));
-    form.append($('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="addQuestion()">Dodaj pytanie</div>'));
+    form.append($('<input type="radio" name="answer" value="yes" checked>Tak</input>'));
+    form.append($('<input type="radio" name="answer" value="no">Nie</input>'));
+    form.append($('<div class="btn btn-primary btn-lg btn-block mybutton myyes" onclick="addQuestion()">Dodaj pytanie</div>'));
     $('#adding').empty();
     $('#adding').append(form);
 }
 
 function addPerson() {
     var data = $('#personText').val();
-    ajaxCall('/GameService.svc/AddPerson', '{"person": "'+data+'"}', function(x) { alert(x.d); });
+    ajaxCall('/GameService.svc/AddPerson', '{"person": "' + data + '", "token": "' + token + '"}', function (x) { alert('dane zostały przesłane'); });
+    appendAddQuestion();
 }
 
 function addQuestion() {
     var data = $('#questionText').val();
-    ajaxCall('/GameService.svc/AddQuestion', '{"question": "' + data + '"}', function (x) { alert(x.d); });
+    var answer = $('#yes').is(':checked') ? 1 : 0;
+    ajaxCall('/GameService.svc/AddQuestion', '{"question": "' + data + '", "answer": "' + answer + '", "token": "'+token+'"}',
+        function (x) { alert('dane zostały przesłane'); });
+    appendAddQuestion();
 }
 
 function sendYesAnswer() {
@@ -178,7 +193,7 @@ function sendDkAnswer() {
 }
 
 function sendAnswer(answer) {
-    ajaxCall('/GameService.svc/GetStep', '{"answer":"'+token+answer+'"}', handleStep);
+    ajaxCall('/GameService.svc/GetStep', '{"answer":"' + answer + '", "token": "' + token + '"}', handleStep);
 }
 
 function sendSummaryDemand() {
@@ -196,19 +211,53 @@ function endGame() {
 function handleStep(step) {
     if (step.d.StepType == "Defeat")
         displayEndScreen('Przegrałem.')
-    else if (step.d.StepType == "Victory")
+    else if (step.d.StepType == "Victory") {
         displayEndScreen('Zgadłem - to ' + step.d.Question, step.d.Image);
-    else if (step.d.StepType == 'Question')
+        appendAddQuestion();
+    }
+    else if (step.d.StepType == 'Question') {
         displayGameScreen(step.d.Question);
+        appendAddPerson();
+    }
     else if (step.d.StepType == 'Guessing')
         displayGameScreen(step.d.Question);
 }
 
 function saveToken(data) {
     token = data.d;
-    ajaxCall('/GameService.svc/GetStep', '{"answer":"' + token + 'Init"}', handleStep);
+    ajaxCall('/GameService.svc/GetStep', '{"answer":"Init"' + ', "token": "' + token + '"}', handleStep);
 }
 
 function handleSummary(summary) {
     displaySummaryScreen(summary.d);
+}
+
+function displayStatistics() {
+    ajaxCall('/GameService.svc/GetStats', '"token": "' + token + '"}', handleStatistics);
+}
+
+function handleStatistics(data) {
+    var stats = data.d;
+    var div = $('#statistics');
+    div.empty();
+
+    var tr = $('<div class="row"></div>');
+    tr.append($('<div class="col-md-4 sumusr">Ilość osób w bazie:</div>'));
+    tr.append($('<div class="col-md-3 sumusr"> ' + stats.PersonCount + '</div>'));
+    div.append(tr);
+
+    tr = $('<div class="row"></div>');
+    tr.append($('<div class="col-md-4 sumusr">Ilość pytań w bazie:</div>'));
+    tr.append($('<div class="col-md-3 sumusr"> ' + stats.QuestionCount + '</div>'));
+    div.append(tr);
+
+    tr = $('<div class="row"></div>');
+    tr.append($('<div class="col-md-4 sumusr">Ilość rozegranych gier:</div>'));
+    tr.append($('<div class="col-md-3 sumusr"> ' + stats.GameCount + '</div>'));
+    div.append(tr);
+
+    tr = $('<div class="row"></div>');
+    tr.append($('<div class="col-md-4 sumusr">Ilość osób zgadniętych przez system:</div>'));
+    tr.append($('<div class="col-md-3 sumusr"> ' + stats.WonCount + '</div>'));
+    div.append(tr);
 }

@@ -14,7 +14,7 @@ namespace Core.Modules
 
         public void StartGame()
         {
-            var unit = new UnitOfWork(new PgContext());
+            var unit = new DbRepository();
             _dataModule = new Modules.DataModule( new GameData(), unit );
         }
 
@@ -38,9 +38,9 @@ namespace Core.Modules
             _dataModule.EndGame();
         }
 
-        public void AddNewQuestion(string text)
+        public void AddNewQuestion(string text, int answer)
         {
-            UpdatingModule.Instance.AddNewQuestion(text);
+            UpdatingModule.Instance.AddNewQuestion(text, answer, _dataModule.GuessedGamePerson?.PersonId);
         }
 
         public void AddNewPerson(string name)

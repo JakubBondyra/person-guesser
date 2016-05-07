@@ -45,7 +45,7 @@ namespace Core.Modules
                     var question = retrieveRegularQuestion();
                     if (question == null)
                     {
-                        _gameState = GameState.Finished;
+                        _gameState = GameState.Defeated;
                         return new DefeatStep();
                     }
                     _currentGameQuestion = question;
@@ -63,6 +63,10 @@ namespace Core.Modules
             {
                 //game finished. only occurs when system has guessed correctly
                 return new VictoryStep(GuessedGamePerson.Name, getImage(GuessedGamePerson.PersonId));
+            }
+            else if (_gameState == GameState.Defeated)
+            {
+                return new DefeatStep();
             }
             throw new Exception("compute next step: invalid something");
         }

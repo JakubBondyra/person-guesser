@@ -16,5 +16,11 @@ namespace DataAccess
         public virtual DbSet<Person> Persons { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Answer> Answers { get; set; }
+        public virtual DbSet<PastGame> PastGames { get; set; }
+
+        public PgContext() : base("name=pgConnectionString")
+        {
+            
+        }
     }
 }

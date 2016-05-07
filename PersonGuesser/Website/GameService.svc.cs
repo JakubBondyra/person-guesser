@@ -57,12 +57,12 @@ namespace Website
         [OperationContract]
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json)]
-        public string AddPerson(string person)
+        public string AddPerson(string person, int token)
         {
             try
             {
-                //TODO:
-                return person + "SERVICE";
+                _modules[token]?.AddNewPerson(person);
+                return person;
             }
             catch (Exception e)
             {
@@ -73,12 +73,12 @@ namespace Website
         [OperationContract]
         [WebInvoke(Method = "POST",
     ResponseFormat = WebMessageFormat.Json)]
-        public string AddQuestion(string question)
+        public string AddQuestion(string question, int answer, int token)
         {
             try
             {
-                //TODO:
-                return question + "SERVICE";
+                _modules[token]?.AddNewQuestion(question, answer);
+                return question;
             }
             catch (Exception e)
             {
@@ -88,17 +88,21 @@ namespace Website
 
         [OperationContract]
         [WebInvoke(Method = "POST",
+            ResponseFormat = WebMessageFormat.Json)]
+        public GameStats GetStats()
+        {
+            var stats = UpdatingModule.GetStats();
+            return new GameStats(stats);
+        }
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
         ResponseFormat = WebMessageFormat.Json)]
-        public StepData GetStep(string answer)
+        public StepData GetStep(string answer, int token)
         {
             try
             {
-                var ind = 0;
-                while (answer[ind] >= '0' && answer[ind] <= '9') ind++;
-                var tokenString = answer.Substring(0, ind);
-                var token = int.Parse(tokenString);
-                var txt = answer.Substring(ind, answer.Length-ind);
-                switch (txt)
+                switch (answer)
                 {
                     case "Yes":
                         _modules[token]?.SaveAnswer(AnswerType.Yes);
@@ -112,7 +116,7 @@ namespace Website
                     case "Init":
                         break;
                     default:
-                        throw new Exception($"Wrong option -> {txt}");
+                        throw new Exception($"Wrong option -> {answer}");
                 }
 
                 var s = _modules[token]?.GetStep();
@@ -120,7 +124,7 @@ namespace Website
             }
             catch (Exception e)
             {
-                return new StepData() { StepType = "Question", Question = e.Message+e.StackTrace};
+                return new StepData() { StepType = "Defeat"};
             }
         }
 
@@ -199,6 +203,27 @@ namespace Website
                 });
             }
             Entries = entryList.ToArray();
+        }
+    }
+
+    [DataContract]
+    public class GameStats
+    {
+        [DataMember]
+        public int PersonCount { get; set; }
+        [DataMember]
+        public int QuestionCount { get; set; }
+        [DataMember]
+        public int GameCount { get; set; }
+        [DataMember]
+        public int WonCount { get; set; }
+
+        public GameStats(Tuple<int,int,int,int> stats)
+        {
+            PersonCount = stats.Item1;
+            QuestionCount = stats.Item2;
+            GameCount = stats.Item3;
+            WonCount = stats.Item4;
         }
     }
 }

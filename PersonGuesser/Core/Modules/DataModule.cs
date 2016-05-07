@@ -8,7 +8,7 @@ namespace Core.Modules
 {
     public enum GameState
     {
-        Initialized, UninitializedPeopleSet, InProgress, Guessing, Finished    
+        Initialized, UninitializedPeopleSet, InProgress, Guessing, Finished, Defeated   
     }
 
     public partial class DataModule : IDecisive
@@ -16,11 +16,11 @@ namespace Core.Modules
         private GameData _gameData;
         private GameState _gameState;
         private GameQuestion _currentGameQuestion;
-        private UnitOfWork _context;
+        private DbRepository _context;
         public GamePerson GuessedGamePerson = null;
         private int guessingLimit = 3;
 
-        public DataModule(GameData gameData, UnitOfWork context)
+        public DataModule(GameData gameData, DbRepository context)
         {
             _gameData = gameData;
             _gameState = GameState.Initialized;
@@ -106,6 +106,7 @@ namespace Core.Modules
             if (_gameState != GameState.Finished) return;
             var summary = new GameSummary(_gameData, GuessedGamePerson);
             UpdatingModule.Instance.UpdateStructures(summary);
+            UpdatingModule.Instance.SaveGameInfo(summary, _gameState == GameState.Finished);
         }
 
         public GameSummary GetSummary()

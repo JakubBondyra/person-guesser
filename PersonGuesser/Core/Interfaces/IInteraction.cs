@@ -10,7 +10,7 @@ namespace Core.Interfaces
         void SaveAnswer(AnswerType answer);
         GameSummary GetSummary();
         void EndGame();
-        void AddNewQuestion(string text);
+        void AddNewQuestion(string text, int answer);
         void AddNewPerson(string name);
     }
 }

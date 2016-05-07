@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Core.Data;
 using DataAccess;
 using DataAccess.Entities;
@@ -34,7 +35,19 @@ namespace Core.Modules
             }
         }
 
-        public void AddNewQuestion(string text)
+        public void SaveGameInfo(GameSummary data, bool won)
+        {
+            using (var context = new PgContext())
+            {
+                var newGame = new PastGame();
+                newGame.QuestionsAsked = data.QuestionsAsked;
+                newGame.Won = won;
+                context.PastGames.Add(newGame);
+                context.SaveChanges();
+            }
+        }
+
+        public void AddNewQuestion(string text, int answer, int? guessedId)
         {
             using (var context = new PgContext())
             {
@@ -48,6 +61,7 @@ namespace Core.Modules
                 var questionAdded = context.Questions.Single(x => x.Text == text);
                 foreach (var person in context.Persons)
                 {
+                    if (person.PersonId != guessedId)
                     context.Answers.Add(
                         new Answer()
                         {
@@ -56,6 +70,17 @@ namespace Core.Modules
                             QuestionId = questionAdded.QuestionId,
                             YesCount = 0
                         });
+                    else
+                    {
+                        context.Answers.Add(
+                            new Answer()
+                            {
+                                NoCount = answer == 1 ? 0 : 1,
+                                PersonId = person.PersonId,
+                                QuestionId = questionAdded.QuestionId,
+                                YesCount = answer == 1 ? 1 : 0
+                            });
+                    }
                 }
                 context.SaveChanges();
             }
@@ -65,7 +90,7 @@ namespace Core.Modules
         {
             using (var context = new PgContext())
             {
-                context.Persons.Add(new DataAccess.Entities.Person()
+                context.Persons.Add(new Person()
                 {
                     Name = name,
                     Count = 0
@@ -98,6 +123,18 @@ namespace Core.Modules
                     }
                 }
                 context.SaveChanges();
+            }
+        }
+
+        public static Tuple<int, int, int, int> GetStats()
+        {
+            using (var context = new PgContext())
+            {
+                var gameCount = context.PastGames.Count();
+                var wonCount = context.PastGames.Count(x => x.Won);
+                var questionCount = context.Questions.Count();
+                var personCount = context.Persons.Count();
+                return new Tuple<int, int, int, int>(personCount, questionCount, gameCount, wonCount);
             }
         }
     }
