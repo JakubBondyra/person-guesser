@@ -112,6 +112,10 @@ input[type="text"] {
     color: lightgray;
 }
 
+.sumdk {
+    color: darkgoldenrod;
+}
+
 .myrow {
     border-bottom: 1px solid lightgray;
 }

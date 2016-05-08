@@ -146,7 +146,9 @@ function displaySummaryScreen(summary) {
         tr = $('<div class="row myrow"></div>');
         var answerStyle = summary.Entries[i].UserAnswer == summary.Entries[i].SystemAnswer ?
             "sumusr" : "sumsys";
-        tr.append($('<div class="col-md-8 '+ answerStyle +'">' + summary.Entries[i].QuestionText + '</div>'));
+        answerStyle = summary.Entries[i].UserAnswer == "Nieznane" || summary.Entries[i].SystemAnswer == "Nieznane" ?
+            "sumdk" : answerStyle;
+    tr.append($('<div class="col-md-8 '+ answerStyle +'">' + summary.Entries[i].QuestionText + '</div>'));
         tr.append($('<div class="col-md-2 ' + answerStyle + '">' + summary.Entries[i].UserAnswer + '</div>'));
         tr.append($('<div class="col-md-2 ' + answerStyle + '">' + summary.Entries[i].SystemAnswer + '</div>'));
         $('#summary').append(tr);

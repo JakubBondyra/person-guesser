@@ -200,11 +200,13 @@ namespace Website
             var entryList = new List<EntryData>();
             foreach (var entry in summary?.Entries)
             {
+                var systemAnswer = entry.SystemAnswer.ToString().Split('.').Last();
+                var userAnswer = entry.UserAnswer.ToString().Split('.').Last();
                 entryList.Add(new EntryData()
                 {
                     QuestionText = entry.QuestionText,
-                    SystemAnswer = entry.SystemAnswer.ToString().Split('.').Last() == "Yes" ? "Tak" : "Nie",
-                    UserAnswer = entry.UserAnswer.ToString().Split('.').Last() == "Yes" ? "Tak" : "Nie"
+                    SystemAnswer = systemAnswer == "Yes" ? "Tak" : systemAnswer == "No" ? "Nie" : "Nieznane",
+                    UserAnswer = userAnswer == "Yes" ? "Tak" : userAnswer == "No" ? "Nie" : "Nieznane",
                 });
             }
             Entries = entryList.ToArray();
