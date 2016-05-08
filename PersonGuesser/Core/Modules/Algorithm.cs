@@ -12,7 +12,7 @@ namespace Core.Modules
         {
             if (_gameData.QuestionsAsked == 40)
             {
-                _gameState = GameState.Finished;
+                _gameState = GameState.Defeated;
                 return new DefeatStep("Przegrałem. Przekroczyłem limit pytań (40).");
             }
 
@@ -23,7 +23,7 @@ namespace Core.Modules
 
                 if (question == null)
                 {
-                    _gameState = GameState.Finished;
+                    _gameState = GameState.Defeated;
                     return new DefeatStep("Przegrałem. Nie udało się mi wyznaczyć pierwszego pytania, wstyd.");
                 }
 
@@ -56,7 +56,13 @@ namespace Core.Modules
                 _gameData.PeopleSet.Remove(GuessedGamePerson);
                 GuessedGamePerson = null;
                 _gameState = GameState.InProgress;
-                return --guessingLimit < 0 ? new DefeatStep("Przegrałem. Próbowałem zgadywać zbyt dużo razy") : computeNextStep();
+                if (--guessingLimit < 0)
+                {
+                    _gameState = GameState.Defeated;
+                    return new DefeatStep("Przegrałem. Próbowałem zgadywać zbyt dużo razy");
+                }
+
+                return computeNextStep();
             }
             else if (_gameState == GameState.Finished)
             {
@@ -123,8 +129,19 @@ namespace Core.Modules
             var questions = _context.GetQuestions
                 (x => Enumerable.All<GameQuestion>(_gameData.QuestionSet, y => y.QuestionId != x.QuestionId));
             //all persons considered in game
-            var persons = _context.GetPersons(
-                (x => Enumerable.Any<GamePerson>(_gameData.PeopleSet, y => y.PersonId == x.PersonId)));
+
+            var people = _gameData.PeopleSet.Where(x => x.DontKnowAnswers != _gameData.QuestionsAsked);
+            var correctCounts = Enumerable.Select<GamePerson, double>(people, x => fuzzyCoeff(x));
+
+
+            var midCount = correctCounts.Where(x=> x> 0f).Average();
+
+            var consideredPeople = people.Where( x => fuzzyCoeff(x) >= midCount);
+            if (!consideredPeople.Any())
+                consideredPeople = people;
+
+            var persons = _context.GetPersons(x => consideredPeople.Any(y => y.PersonId == x.PersonId));
+
             Random r = new Random();
             Question bestQuestion = null;
             var bestSum = int.MaxValue;
@@ -147,7 +164,7 @@ namespace Core.Modules
                     bestSum = Math.Abs(preciseAnswers);
                     bestQuestion = question;
                 }
-                if (r.Next(1, 10) < 5)
+                if (r.Next(1, 15) == 1)
                 {
                     var unknownCount = _context.GetAnswers(x => x.QuestionId == question.QuestionId && 
                     x.NoCount == 0 && x.YesCount == 0).Count;
@@ -172,10 +189,17 @@ namespace Core.Modules
         {
             Question bestQuestion = null;
             var bestSum = int.MaxValue;
+            var r = new Random();
             foreach (var question in questions)
             {
-                var preciseAnswers = Enumerable.Select<Answer, int>(_context.GetAnswers(x => x.QuestionId == question.QuestionId), x=> x.YesCount > x.NoCount ? 1 : -1).Sum();
+                var preciseAnswers = Enumerable.Select<Answer, int>(_context.GetAnswers
+                    (x => x.QuestionId == question.QuestionId), x=> x.YesCount > x.NoCount ? 1 : -1).Sum();
                 if (Math.Abs(preciseAnswers) < bestSum)
+                {
+                    bestSum = Math.Abs(preciseAnswers);
+                    bestQuestion = question;
+                }
+                if (Math.Abs(preciseAnswers) == bestSum && r.Next(0, 1) == 0)
                 {
                     bestSum = Math.Abs(preciseAnswers);
                     bestQuestion = question;
@@ -188,9 +212,9 @@ namespace Core.Modules
         {
             GamePerson bestMatch = null;
             double maxCoeff = double.MinValue;
-            foreach (var person in _gameData.PeopleSet)
+            foreach (var person in _gameData.PeopleSet.Where(x=> x.DontKnowAnswers != _gameData.QuestionsAsked))
             {
-                double coeff = person.CorrectAnswers/(double)_gameData.QuestionsAsked;
+                double coeff = fuzzyCoeff(person);
                 if (coeff > maxCoeff)
                 {
                     bestMatch = person;
@@ -208,8 +232,8 @@ namespace Core.Modules
             //if one of persons is very distinguishable from the others return true
             if (_gameData.QuestionsAsked < 4)
                 return false;
-
-            var correctCounts = Enumerable.Select<GamePerson, double>(_gameData.PeopleSet, x => (double)x.CorrectAnswers/(double)_gameData.QuestionsAsked);
+            var people = _gameData.PeopleSet.Where(x => x.DontKnowAnswers != _gameData.QuestionsAsked);
+            var correctCounts = Enumerable.Select<GamePerson, double>(people, x => fuzzyCoeff(x));
             var max = correctCounts.Max();
             var maxCount = correctCounts.Count(x => Math.Round(max, 2) == Math.Round(x, 2));
             if (_gameData.QuestionsAsked < 8 && maxCount == 1)
@@ -240,6 +264,11 @@ namespace Core.Modules
             if (yesCount == noCount && yesCount == 0)
                 dataAnswer = AnswerType.Unknown;
             return dataAnswer;
+        }
+
+        private double fuzzyCoeff(GamePerson x)
+        {
+            return (double)x.CorrectAnswers/(double)(_gameData.QuestionsAsked - x.DontKnowAnswers);
         }
     }
 }

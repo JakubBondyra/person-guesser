@@ -30,6 +30,7 @@ namespace Core.Data
         public int PersonId;
         public string Name;
         public int CorrectAnswers;
+        public int DontKnowAnswers = 0;
         public int OccurenceCount;
         public AnswerType CurrentAnswer;
     }

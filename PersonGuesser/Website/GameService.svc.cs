@@ -126,8 +126,7 @@ namespace Website
             {
                 return new StepData()
                 {
-                    StepType = "Defeat", DisplayText = "Przegrałem, bo poleciał wyjątek w systemie ("+e.Message
-                    + "). Przyznaj się, robiłeś coś głupiego."
+                    StepType = "Defeat", DisplayText = "Przegrałem, bo nikt mi nie przychodzi na myśl, prawdopodobnie nie ma go w bazie."
                 };
             }
         }

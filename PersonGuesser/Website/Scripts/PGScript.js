@@ -94,7 +94,7 @@ function displayEndScreen(txt, image) {
     $('#game').append($('<br/>'));
     var buttonRow = $('<div class="row"></div>');
 
-    var colyes = $('<div class="col-md-4"></div>');
+    var colyes = $('<div  id="summButton" class="col-md-4"></div>');
     var byes = $('<div class="btn btn-primary btn-lg btn-block mybutton mydk" onclick="sendSummaryDemand()">Podsumowanie</div>');
     colyes.append(byes);
 
@@ -241,7 +241,9 @@ function endGame() {
 function handleStep(step) {
     if (step.d.StepType == "Defeat") {
         displayEndScreen(step.d.DisplayText);
+        $('#summButton').empty();
         appendAddPerson();
+        displayAddPerson();
     } else if (step.d.StepType == "Victory") {
         displayEndScreen('Zgadłem - to ' + step.d.DisplayText, step.d.Image);
         appendAddQuestion();

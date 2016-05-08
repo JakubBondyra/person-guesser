@@ -81,6 +81,8 @@ namespace Core.Modules
                 {
                     foreach (var person in _gameData.PeopleSet)
                     {
+                        if (person.CurrentAnswer == AnswerType.Unknown)
+                            person.DontKnowAnswers ++;
                         if (person.CurrentAnswer == AnswerType.Unknown || answer == AnswerType.Unknown)
                             continue;
                         if (person.CurrentAnswer == answer)
@@ -114,10 +116,11 @@ namespace Core.Modules
 
         public void EndGame()
         {
-            if (_gameState != GameState.Finished) return;
+            if (_gameState != GameState.Finished && _gameState != GameState.Defeated) return;
             var summary = new GameSummary(_gameData, GuessedGamePerson);
-            UpdatingModule.Instance.UpdateStructures(summary);
             UpdatingModule.Instance.SaveGameInfo(summary, _gameState == GameState.Finished);
+            if (_gameState == GameState.Finished)
+                UpdatingModule.Instance.UpdateStructures(summary);
         }
 
         public GameSummary GetSummary()
