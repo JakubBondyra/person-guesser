@@ -93,9 +93,9 @@ namespace Core.Modules
             using (var context = new PgContext())
             {
                 //jezeli jest taka osoba juz, to nie dodawaj jej na pałę:
-                if (context.Persons.Any(x => String.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase)))
+                if (context.Persons.Any(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)))
                 {
-                    var person = context.Persons.Single(x => x.Name == name);
+                    var person = context.Persons.Single(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
                     gameSummary.GuessedGamePerson = new GamePerson()
                     {
                         CorrectAnswers = -1,

@@ -10,70 +10,78 @@ namespace Core.Modules
     {
         private Step computeNextStep()
         {
-            if (_gameData.QuestionsAsked == 40)
+            try
             {
-                _gameState = GameState.Defeated;
-                return new DefeatStep("Przegrałem. Przekroczyłem limit pytań (40).");
-            }
-
-            if (_gameState == GameState.Initialized)
-            {
-                var question = retrieveFirstQuestion();
-                _gameState = GameState.UninitializedPeopleSet;
-
-                if (question == null)
+                if (_gameData.QuestionsAsked == 40)
                 {
                     _gameState = GameState.Defeated;
-                    return new DefeatStep("Przegrałem. Nie udało się mi wyznaczyć pierwszego pytania, wstyd.");
+                    return new DefeatStep("Przegrałem. Przekroczyłem limit pytań (40).");
                 }
 
-                _currentGameQuestion = question;
-                return new QuestionStep(question.QuestionText);
-            }
-            else if (_gameState == GameState.InProgress)
-            {
-                if (canGuess(_gameData.PeopleSet))
+                if (_gameState == GameState.Initialized)
                 {
-                    var guessFeature = retrieveGuessingQuestion();
-                    GuessedGamePerson = guessFeature.Item1;
-                    _gameState = GameState.Guessing;
-                    return new GuessingStep(guessFeature.Item2);
-                }
-                else
-                {
-                    var question = retrieveRegularQuestion();
+                    var question = retrieveFirstQuestion();
+                    _gameState = GameState.UninitializedPeopleSet;
+
                     if (question == null)
                     {
                         _gameState = GameState.Defeated;
-                        return new DefeatStep("Przegrałem. Nie ma już więcej pytań w bazie.");
+                        return new DefeatStep("Przegrałem. Nie udało się mi wyznaczyć pierwszego pytania, wstyd.");
                     }
+
                     _currentGameQuestion = question;
                     return new QuestionStep(question.QuestionText);
                 }
-            }
-            else if (_gameState == GameState.Guessing)
-            {
-                _gameData.PeopleSet.Remove(GuessedGamePerson);
-                GuessedGamePerson = null;
-                _gameState = GameState.InProgress;
-                if (--guessingLimit < 0)
+                else if (_gameState == GameState.InProgress)
                 {
-                    _gameState = GameState.Defeated;
-                    return new DefeatStep("Przegrałem. Próbowałem zgadywać zbyt dużo razy");
+                    if (canGuess(_gameData.PeopleSet))
+                    {
+                        var guessFeature = retrieveGuessingQuestion();
+                        GuessedGamePerson = guessFeature.Item1;
+                        _gameState = GameState.Guessing;
+                        return new GuessingStep(guessFeature.Item2);
+                    }
+                    else
+                    {
+                        var question = retrieveRegularQuestion();
+                        if (question == null)
+                        {
+                            _gameState = GameState.Defeated;
+                            return new DefeatStep("Przegrałem. Nie ma już więcej pytań w bazie.");
+                        }
+                        _currentGameQuestion = question;
+                        return new QuestionStep(question.QuestionText);
+                    }
                 }
+                else if (_gameState == GameState.Guessing)
+                {
+                    _gameData.PeopleSet.Remove(GuessedGamePerson);
+                    GuessedGamePerson = null;
+                    _gameState = GameState.InProgress;
+                    if (--guessingLimit < 0)
+                    {
+                        _gameState = GameState.Defeated;
+                        return new DefeatStep("Przegrałem. Próbowałem zgadywać zbyt dużo razy");
+                    }
 
-                return computeNextStep();
+                    return computeNextStep();
+                }
+                else if (_gameState == GameState.Finished)
+                {
+                    //game finished. only occurs when system has guessed correctly
+                    return new VictoryStep(GuessedGamePerson.Name, getImage(GuessedGamePerson.PersonId));
+                }
+                else if (_gameState == GameState.Defeated)
+                {
+                    return new DefeatStep("Przegrałem. Dla twoich odpowiedzi nie mogę wyznaczyć osoby.");
+                }
+                throw new Exception("compute next step: invalid something");
             }
-            else if (_gameState == GameState.Finished)
+            catch (Exception)
             {
-                //game finished. only occurs when system has guessed correctly
-                return new VictoryStep(GuessedGamePerson.Name, getImage(GuessedGamePerson.PersonId));
+                _gameState = GameState.Defeated;
+                throw;
             }
-            else if (_gameState == GameState.Defeated)
-            {
-                return new DefeatStep("Przegrałem. Dla twoich odpowiedzi nie mogę wyznaczyć osoby.");
-            }
-            throw new Exception("compute next step: invalid something");
         }
 
         private string getImage(int personId)
@@ -249,6 +257,8 @@ namespace Core.Modules
 
         private void prepareSummaries(GamePerson gamePerson)
         {
+            if (gamePerson == null)
+                return;
             //operate on database, take answers for this GamePerson and add them to QuestionSet
             var answers = _context.GetAnswers(x => x.PersonId == gamePerson.PersonId);
             foreach (var question in _gameData.QuestionSet)

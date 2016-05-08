@@ -15,7 +15,7 @@ function ajaxCall(_url, _data, _successFuncton) {
                     data: _data,
                     dataType: 'json',
                     success: _successFuncton,
-                    error: function (data) { alert('ERROR: '+data.d); }
+                    error: function (data) { alert('Błąd wysyłania zapytania ('+data.d+').'); }
                 });
 }
 
@@ -190,18 +190,17 @@ function displayAddQuestion() {
 
 function addPerson() {
     var data = $('#personText').val();
-    alert("na razie funkcjonalność niedostępna. nie chcę by jakiś kretyn rozwalił mi bazę.");
-    //ajaxCall('/GameService.svc/AddPerson', '{"person": "' + data + '", "token": "' + token + '"}', function (x) { alert('dane zostały przesłane'); });
+    ajaxCall('/GameService.svc/AddPerson', '{"person": "' + data + '", "token": "' + token + '"}',
+        function (x) { alert('Osoba została dodana (' + x.d + ').'); });
     appendAddQuestion();
 }
 
 function addQuestion() {
     var data = $('#questionText').val();
     var answer = $('#yesRadio').is(':checked') ? 1 : 0;
-    alert("na razie funkcjonalność niedostępna. nie chcę by jakiś kretyn rozwalił mi bazę.");
-    //ajaxCall('/GameService.svc/AddQuestion', '{"question": "' + data + '", "answer": "' + answer + '", "token": "'+token+'"}',
-        //function (x) { alert('dane zostały przesłane'); });
-    appendAddQuestion();
+    ajaxCall('/GameService.svc/AddQuestion', '{"question": "' + data + '", "answer": "' + answer + '", "token": "'+token+'"}',
+        function (x) { alert('Pytanie zostało dodane ('+ x.d +').'); });
+    removeAdding();
 }
 
 function sendYesAnswer() {
@@ -228,7 +227,7 @@ function initializeGame() {
     if (disabled == 0) {
         disabled = 1;
         $('#startGameText').empty();
-        $('#startGameText').append('Trwa inicjalizacja sesji rozgrywki. Baza danych jest lipna, więc chwilkę to potrwa.');
+        $('#startGameText').append('Trwa inicjalizacja sesji rozgrywki.');
         ajaxCall('/GameService.svc/StartGame', '', saveToken);
     }
 
@@ -298,4 +297,8 @@ function handleStatistics(data) {
     tr.append($('<div class="col-md-5 mytext">Ilość osób zgadniętych przez system:</div>'));
     tr.append($('<div class="col-md-3 mytext"> ' + stats.WonCount + '</div>'));
     div.append(tr);
+}
+
+function removeAdding() {
+    $('#addDiv').empty();
 }
