@@ -161,7 +161,7 @@ function displayAddPerson() {
         return;
     }
     var form = $('<form></form>');
-    form.append($('<p class="mytextsmall">Pomoż usprawnić system. Dodaj osobę, o której myślałeś:</p>'));
+    form.append($('<p class="mytextsmall">Pomoż usprawnić system. Dodaj osobę, o której myślałeś (prośba o wpisywanie pełnego imienia i nazwiska):</p>'));
     form.append($('<input id="personText" placeholder="osoba" type="text"></input>'));
     form.append($('<div class="btn btn-primary btn-lg btn-block mybutton myyes" onclick="addPerson()">Wyślij</div>'));
     $('#adding').append(form);
