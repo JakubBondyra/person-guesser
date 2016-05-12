@@ -167,7 +167,8 @@ namespace Core.Modules
                     bestSum = Math.Abs(preciseAnswers);
                     bestQuestion = question;
                 }
-                if (Math.Abs(preciseAnswers) == bestSum && r.Next(0,1) == 0)
+                if (Math.Abs(preciseAnswers) == bestSum 
+                    && ((bestQuestion?.Unforgiveable == false) && (r.Next(0,1) == 0 || question.Unforgiveable)))
                 {
                     bestSum = Math.Abs(preciseAnswers);
                     bestQuestion = question;
