@@ -70,7 +70,7 @@ namespace Core.Modules
                     _currentGameQuestion.UserAnswer = answer;
                     _gameData.QuestionSet.Add(_currentGameQuestion);
                     if (_currentGameQuestion.Unforgiveable)
-                        _gameData.PeopleSet = _gameData.PeopleSet.Where(x => x.CurrentAnswer == answer).ToList();
+                        _gameData.PeopleSet = _gameData.PeopleSet.Where(x => x.CurrentAnswer == answer || x.CurrentAnswer == AnswerType.Unknown).ToList();
 
                     _currentGameQuestion = null;
                     _gameData.QuestionsAsked++;
