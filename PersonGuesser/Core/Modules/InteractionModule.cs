@@ -45,15 +45,25 @@ namespace Core.Modules
 
         public void AddNewPerson(string name)
         {
-            UpdatingModule.Instance.AddNewPerson(name, _dataModule.GetSummary());
+            var person = UpdatingModule.Instance.AddNewPerson(name, _dataModule.GetSummary());
             _dataModule.GuessedGamePerson = new GamePerson()
             {
                 CorrectAnswers = 0,
                 CurrentAnswer = AnswerType.Unknown,
-                Name = name,
-                OccurenceCount = 1,
-                PersonId = -1
+                Name = person.Name,
+                OccurenceCount = person.Count, 
+                PersonId = person.PersonId
             };
+        }
+
+        public bool SendPhotoString(string base64String)
+        {
+            return UpdatingModule.Instance.UpdatePhoto(_dataModule.GuessedGamePerson.PersonId, base64String);
+        }
+
+        public string GetPhotoString()
+        {
+            return _dataModule.GetPhotoString();
         }
     }
 }

@@ -77,16 +77,9 @@ function displayGameScreen(text) {
 function displayEndScreen(txt, image) {
     //displaying ending screen (with text)
     $('#game').empty();
-    if (image != null) {
-        var i = $('<div class="row" style="text-align: center; "></div>');
-        var img = new Image();
-        img.style.display = 'inline-block';
-        img.style.margin = '0 5px';
-        img.height = 400;
-        img.src = 'data:image/png;base64,' + image;
-        i.append(img);
-        $('#game').append(i);
-    }
+    var imageRow = $('<div class="row" id="imageRow"></div>');
+    $('#game').append(imageRow);
+    handleImage(image);
     var r = $('<div class="row"></div>');
     r.append('<h2 class="text-center mytext">' + txt + '</h2>');
     $('#game').append(r);
@@ -98,7 +91,7 @@ function displayEndScreen(txt, image) {
     var byes = $('<div class="btn btn-primary btn-lg btn-block mybutton mydk" onclick="sendSummaryDemand()">Podsumowanie</div>');
     colyes.append(byes);
 
-    var colap = $('<div class="col-md-4" id="addDiv"></div>');
+    var colap = $('<div class="col-md-4" id="addContainer"></div>');
 
     var colno = $('<div class="col-md-4"></div>');
     var dno = $('<div class="btn btn-primary btn-lg btn-block mybutton myno" onclick="endGame()">Restart</div>');
@@ -113,7 +106,7 @@ function displayEndScreen(txt, image) {
 }
 
 function appendAddPerson() {
-    var addDiv = $('#addDiv');
+    var addDiv = $('#addContainer');
     addDiv.empty();
     var bap = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="displayAddPerson()">Dodaj osobę</div>');
     addDiv.append(bap);
@@ -121,7 +114,7 @@ function appendAddPerson() {
 }
 
 function appendAddQuestion() {
-    var addDiv = $('#addDiv');
+    var addDiv = $('#addContainer');
     addDiv.empty();
     var baq = $('<div class="btn btn-primary btn-lg btn-block mybutton" onclick="displayAddQuestion()">Dodaj pytanie</div>');
     addDiv.append(baq);
@@ -191,7 +184,10 @@ function displayAddQuestion() {
 function addPerson() {
     var data = $('#personText').val();
     ajaxCall('/GameService.svc/AddPerson', '{"person": "' + data + '", "token": "' + token + '"}',
-        function (x) { alert('Osoba została dodana (' + x.d + ').'); });
+        function(x) {
+            alert('Osoba została dodana (' + x.d + ').');
+            $('#summButton').append('<div class="btn btn-primary btn-lg btn-block mybutton mydk" onclick="sendSummaryDemand()">Podsumowanie</div>');
+        });
     appendAddQuestion();
 }
 
@@ -300,5 +296,32 @@ function handleStatistics(data) {
 }
 
 function removeAdding() {
-    $('#addDiv').empty();
+    $('#addContainer').empty();
+}
+
+function handleImage(image) {
+    var row = $('#imageRow');
+    row.empty();
+
+    var container = $('<div id="imageContainer"></div>');
+
+    if (image != null) {
+
+        var img = new Image();
+        img.style.display = 'inline-block';
+        img.style.margin = '0 5px';
+        img.height = 400;
+        img.src = 'data:image/png;base64,' + image;
+        container.append(img);
+
+    } else {
+        var div = $('<div class="col-md-4"></div>');
+        var e = '<div class="text-center mytext"><p style="color:gray;">Nie mamy jeszcze zdjęcia dla tej osoby.</p></div>';
+        div.append(e);
+        container.append('<div class="col-md-4"></div>');
+        container.append(div);
+        container.append('<div class="col-md-4"></div>');
+    }
+
+    row.append(container);
 }

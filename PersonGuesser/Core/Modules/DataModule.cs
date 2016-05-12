@@ -133,8 +133,13 @@ namespace Core.Modules
 
         public GameSummary GetSummary()
         {
-            prepareSummaries(GuessedGamePerson);
+            prepareSummaries(GuessedGamePerson, _gameData);
             return new GameSummary(_gameData, GuessedGamePerson);
+        }
+
+        public string GetPhotoString()
+        {
+            return _context.GetPersons(x => x.PersonId == GuessedGamePerson.PersonId).Single().Image;
         }
     }
 }

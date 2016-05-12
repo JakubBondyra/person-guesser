@@ -255,25 +255,25 @@ namespace Core.Modules
             return false;
         }
 
-        private void prepareSummaries(GamePerson gamePerson)
+        private void prepareSummaries(GamePerson gamePerson, GameData gameData)
         {
             if (gamePerson == null)
                 return;
             //operate on database, take answers for this GamePerson and add them to QuestionSet
             var answers = _context.GetAnswers(x => x.PersonId == gamePerson.PersonId);
-            foreach (var question in _gameData.QuestionSet)
+            foreach (var question in gameData.QuestionSet)
             {
-                var answer = Enumerable.Single<Answer>(answers, x => x.QuestionId == question.QuestionId);
-                question.SystemAnswer = calculateDominatingAnswer(answer.YesCount, answer.NoCount);
+                var answer = answers.SingleOrDefault(x => x.QuestionId == question.QuestionId);
+                question.SystemAnswer = answer == default(Answer) ? AnswerType.Unknown : calculateDominatingAnswer(answer.YesCount, answer.NoCount);
             }
         }
 
         private static AnswerType calculateDominatingAnswer(int yesCount, int noCount)
         {
-            AnswerType dataAnswer = yesCount > noCount ? AnswerType.Yes : AnswerType.No;
-            if (yesCount == noCount && yesCount == 0)
-                dataAnswer = AnswerType.Unknown;
-            return dataAnswer;
+            if (yesCount == noCount) return AnswerType.Unknown;
+            if (yesCount > (int)(1.3f * noCount)) return AnswerType.Yes;
+            if (noCount > (int)(1.3f * yesCount)) return AnswerType.No;
+            return AnswerType.Unknown;
         }
 
         private double fuzzyCoeff(GamePerson x)

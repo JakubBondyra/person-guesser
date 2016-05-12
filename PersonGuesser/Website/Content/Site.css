@@ -45,6 +45,13 @@ input[type="select"] {
     color: lightgray;
 }
 
+.mybutton2 {
+    background-color: green;
+    border-color: gray;
+    border-width: 2px;
+    color: lightgray;
+}
+
 input[type="text"] {
     display: block;
     margin: 0 auto;

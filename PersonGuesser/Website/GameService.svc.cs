@@ -11,6 +11,7 @@ using System.Web.Providers.Entities;
 using Core.Data;
 using Core.Interfaces;
 using Core.Modules;
+using Microsoft.Ajax.Utilities;
 
 namespace Website
 {
@@ -43,6 +44,7 @@ namespace Website
         public void EndGame(int token)
         {
             _modules[token]?.EndGame();
+            _modules.Remove(token);
         }
 
         [OperationContract]

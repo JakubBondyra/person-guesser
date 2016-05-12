@@ -12,5 +12,7 @@ namespace Core.Interfaces
         void EndGame();
         void AddNewQuestion(string text, int answer);
         void AddNewPerson(string name);
+        bool SendPhotoString(string base64String);
+        string GetPhotoString();
     }
 }

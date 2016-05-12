@@ -88,7 +88,7 @@ namespace Core.Modules
             }
         }
 
-        public void AddNewPerson(string name, GameSummary gameSummary)
+        public Person AddNewPerson(string name, GameSummary gameSummary)
         {
             using (var context = new PgContext())
             {
@@ -104,7 +104,7 @@ namespace Core.Modules
                         PersonId = person.PersonId
                     };
                     UpdateStructures(gameSummary);
-                    return;
+                    return person;
                 }
                 // w pp. dodaj ją na pałę:
                 context.Persons.Add(new Person()
@@ -113,7 +113,7 @@ namespace Core.Modules
                     Count = 0
                 });
                 context.SaveChanges();
-                var personAdded = context.Persons.Single(x => x.Name == name);
+                var personAdded = context.Persons.Single(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
                 var questions = context.Questions.ToList();
                 foreach (var question in questions)
                 {
@@ -140,6 +140,7 @@ namespace Core.Modules
                     }
                 }
                 context.SaveChanges();
+                return personAdded;
             }
         }
 
@@ -154,6 +155,19 @@ namespace Core.Modules
                 var askCount = context.PastGames.Sum(x => x.QuestionsAsked);
                 return new Tuple<int, int, int, int, int>(personCount, questionCount, gameCount, 
                     wonCount, askCount);
+            }
+        }
+
+        public bool UpdatePhoto(int personId, string base64String)
+        {
+            using (var context = new PgContext())
+            {
+                var person = context.Persons.Single(x => x.PersonId == personId);
+                if (person.Image != default(string))
+                    return false;
+                person.Image = base64String;
+                context.SaveChanges();
+                return true;
             }
         }
     }
