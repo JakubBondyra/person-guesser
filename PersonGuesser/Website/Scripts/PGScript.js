@@ -308,9 +308,9 @@ function handleImage(image) {
     if (image != null) {
 
         var img = new Image();
-        img.style.display = 'inline-block';
-        img.style.margin = '0 5px';
-        img.height = 400;
+        img.style.display = 'block';
+        img.style.margin = '0 auto';
+        img.height = 300;
         img.src = 'data:image/png;base64,' + image;
         container.append(img);
 
