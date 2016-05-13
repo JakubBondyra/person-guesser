@@ -174,18 +174,26 @@ function displayAddQuestion() {
     tr.append($('<div class="col-md-2 mytextsmall">Tak</div>'));
     form.append(tr);
     tr = $('<div class="row"></div>');
-    tr.append($('<div class="col-md-2"><input type="radio" name="answer"></div>'));
+    tr.append($('<div class="col-md-2"><input type="radio" name="answer" id ="noRadio"></div>'));
     tr.append($('<div class="col-md-2 mytextsmall">Nie</div>'));
     form.append(tr);
     form.append($('<div class="btn btn-primary btn-lg btn-block mybutton myyes" onclick="addQuestion()">Wyślij</div>'));
     $('#adding').append(form);
 }
 
+function isEmpty(str) {
+    return (!str || 0 === str.length);
+}
+
 function addPerson() {
     var data = $('#personText').val();
+    if (isEmpty(data))
+        return;
     ajaxCall('/GameService.svc/AddPerson', '{"person": "' + data + '", "token": "' + token + '"}',
         function(x) {
-            alert('Osoba została dodana (' + x.d + ').');
+            if (x.d !== data) {
+                alert("Niepoprawne dane osoby!");
+            } else alert("Poprawnie dodano: " + x.d);
             $('#summButton').append('<div class="btn btn-primary btn-lg btn-block mybutton mydk" onclick="sendSummaryDemand()">Podsumowanie</div>');
         });
     appendAddQuestion();
@@ -193,9 +201,15 @@ function addPerson() {
 
 function addQuestion() {
     var data = $('#questionText').val();
+    if (isEmpty(data) || !($('#yesRadio').is(':checked') || $('#noRadio').is(':checked')))
+        return;
     var answer = $('#yesRadio').is(':checked') ? 1 : 0;
     ajaxCall('/GameService.svc/AddQuestion', '{"question": "' + data + '", "answer": "' + answer + '", "token": "'+token+'"}',
-        function (x) { alert('Pytanie zostało dodane ('+ x.d +').'); });
+        function(x) {
+            if (x.d !== data) {
+                alert("Niepoprawna forma pytania (niedopuszczalny pusty string, znaki niealfanumeryczne (wyjątkiem spacja), dwie spacje z rzędu, brak znaku zapytania na końcu)");
+            } else alert("Poprawnie dodano pytanie: " + x.d);
+        });
     removeAdding();
 }
 
@@ -270,27 +284,27 @@ function handleStatistics(data) {
     div.empty();
 
     var tr = $('<div class="row"></div>');
-    tr.append($('<div class="col-md-5 mytext">Ilość osób w bazie:</div>'));
+    tr.append($('<div class="col-md-5 mytext">Liczba osób w bazie:</div>'));
     tr.append($('<div class="col-md-3 mytext"> ' + stats.PersonCount + '</div>'));
     div.append(tr);
 
     tr = $('<div class="row"></div>');
-    tr.append($('<div class="col-md-5 mytext">Ilość pytań w bazie:</div>'));
+    tr.append($('<div class="col-md-5 mytext">Liczba pytań w bazie:</div>'));
     tr.append($('<div class="col-md-3 mytext"> ' + stats.QuestionCount + '</div>'));
     div.append(tr);
 
     tr = $('<div class="row"></div>');
-    tr.append($('<div class="col-md-5 mytext">Łączna ilość pytań zadanych przez system:</div>'));
+    tr.append($('<div class="col-md-5 mytext">Łączna liczba pytań zadanych przez system:</div>'));
     tr.append($('<div class="col-md-3 mytext"> ' + stats.AskCount + '</div>'));
     div.append(tr);
 
     tr = $('<div class="row"></div>');
-    tr.append($('<div class="col-md-5 mytext">Ilość rozegranych gier:</div>'));
+    tr.append($('<div class="col-md-5 mytext">Liczba rozegranych gier:</div>'));
     tr.append($('<div class="col-md-3 mytext"> ' + stats.GameCount + '</div>'));
     div.append(tr);
 
     tr = $('<div class="row"></div>');
-    tr.append($('<div class="col-md-5 mytext">Ilość osób zgadniętych przez system:</div>'));
+    tr.append($('<div class="col-md-5 mytext">Liczba osób zgadniętych przez system:</div>'));
     tr.append($('<div class="col-md-3 mytext"> ' + stats.WonCount + '</div>'));
     div.append(tr);
 }
