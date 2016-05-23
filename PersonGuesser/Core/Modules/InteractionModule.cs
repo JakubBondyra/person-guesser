@@ -56,11 +56,6 @@ namespace Core.Modules
             };
         }
 
-        public bool SendPhotoString(string base64String)
-        {
-            return UpdatingModule.Instance.UpdatePhoto(_dataModule.GuessedGamePerson.PersonId, base64String);
-        }
-
         public string GetPhotoString()
         {
             return _dataModule.GetPhotoString();

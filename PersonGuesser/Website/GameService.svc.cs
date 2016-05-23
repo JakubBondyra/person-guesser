@@ -63,14 +63,13 @@ namespace Website
         {
             try
             {
-                if (!person.IsNullOrWhiteSpace() && !person.StartsWith(" ")  
-                    && person.Where(x=> x != ' ').All(Char.IsLetterOrDigit) && !person.Contains(" "))
+                if (!person.IsNullOrWhiteSpace() && !person.StartsWith(" "))
                     _modules[token]?.AddNewPerson(person);
                 else
                 {
                     return "";
                 }
-                return "Poprawnie dodano: "+person;
+                return person;
             }
             catch (Exception e)
             {
@@ -86,7 +85,6 @@ namespace Website
             try
             {
                 if (!question.IsNullOrWhiteSpace() && !question.StartsWith(" ")
-                    && question.Where(x => x != ' ').All(Char.IsLetterOrDigit) && !question.Contains("  ")
                     && question.EndsWith("?"))
                     _modules[token]?.AddNewQuestion(question, answer);
                 else

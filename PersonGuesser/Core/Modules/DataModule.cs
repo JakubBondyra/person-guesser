@@ -39,13 +39,16 @@ namespace Core.Modules
                 }
                 if (_gameState == GameState.UninitializedPeopleSet)
                 {
-                    //there was first question, now its time to fill it
+                    //there was first question, now its time to prepare initial sets
                     var answers = _context.GetAnswers(x => x.QuestionId == _currentGameQuestion.QuestionId);
                     var personsToAdd = _context.GetPersons(x => answers.Any(y => y.PersonId == x.PersonId));
+
                     _currentGameQuestion.UserAnswer = answer;
                     _gameData.QuestionSet.Add(_currentGameQuestion);
                     _currentGameQuestion = null;
                     _gameData.QuestionsAsked++;
+
+                    //fill people set
                     foreach (var person in personsToAdd)
                     {
                         var a = answers.Single(x => x.PersonId == person.PersonId);
@@ -67,8 +70,12 @@ namespace Core.Modules
                 }
                 else if (_gameState == GameState.InProgress)
                 {
+                    //regular case, there was an answer for regular question, update datasets
+
                     _currentGameQuestion.UserAnswer = answer;
                     _gameData.QuestionSet.Add(_currentGameQuestion);
+
+                    //unforgiveable - remove some persons
                     if (_currentGameQuestion.Unforgiveable)
                         _gameData.PeopleSet = _gameData.PeopleSet.Where(x => x.CurrentAnswer == answer || x.CurrentAnswer == AnswerType.Unknown).ToList();
 
@@ -81,6 +88,7 @@ namespace Core.Modules
                     }
                     else
                     {
+                        //update data sets
                         foreach (var person in _gameData.PeopleSet)
                         {
                             if (person.CurrentAnswer == AnswerType.Unknown)
@@ -96,6 +104,7 @@ namespace Core.Modules
                 }
                 else if (_gameState == GameState.Guessing)
                 {
+                    //guessing, can only be two options - yes or no
                     if (answer == AnswerType.No)
                     {
                         _gameData.QuestionsAsked ++;
@@ -103,10 +112,6 @@ namespace Core.Modules
                     else if (answer == AnswerType.Yes)
                     {
                         _gameState = GameState.Finished;
-                    }
-                    else
-                    {
-                        throw new Exception("Fuck you");
                     }
                 }
             }
@@ -117,11 +122,13 @@ namespace Core.Modules
             }
         }
 
+        //self explanatory
         public Step GetStep()
         {
             return computeNextStep();
         }
 
+        //call updating maintenance and turn off the light
         public void EndGame()
         {
             if (_gameState != GameState.Finished && _gameState != GameState.Defeated) return;
@@ -131,15 +138,17 @@ namespace Core.Modules
                 UpdatingModule.Instance.UpdateStructures(summary);
         }
 
+        //self explanatory
         public GameSummary GetSummary()
         {
             prepareSummaries(GuessedGamePerson, _gameData);
             return new GameSummary(_gameData, GuessedGamePerson);
         }
 
+        //havent had place where to put it
         public string GetPhotoString()
         {
-            return _context.GetPersons(x => x.PersonId == GuessedGamePerson.PersonId).Single().Image;
+            return getImage(GuessedGamePerson.PersonId);
         }
     }
 }

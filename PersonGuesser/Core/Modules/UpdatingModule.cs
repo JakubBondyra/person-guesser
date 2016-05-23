@@ -12,6 +12,7 @@ namespace Core.Modules
 
         public static UpdatingModule Instance => _instance ?? (_instance = new UpdatingModule());
 
+        //happens in the end of a game - get information about past game
         public void UpdateStructures(GameSummary data)
         {
             using (var context = new PgContext())
@@ -35,6 +36,7 @@ namespace Core.Modules
             }
         }
 
+        //add new row in past games table (statistical purposes)
         public void SaveGameInfo(GameSummary data, bool won)
         {
             using (var context = new PgContext())
@@ -49,6 +51,7 @@ namespace Core.Modules
             }
         }
 
+        //add question on user's demand, if only it is valid
         public void AddNewQuestion(string text, int answer, int? guessedId)
         {
             using (var context = new PgContext())
@@ -88,6 +91,7 @@ namespace Core.Modules
             }
         }
 
+        //add person on user's demand, if only it is valid
         public Person AddNewPerson(string name, GameSummary gameSummary)
         {
             using (var context = new PgContext())
@@ -144,6 +148,7 @@ namespace Core.Modules
             }
         }
 
+        //dont want to talk about it
         public static Tuple<int, int, int, int, int> GetStats()
         {
             using (var context = new PgContext())
@@ -155,19 +160,6 @@ namespace Core.Modules
                 var askCount = context.PastGames.Sum(x => x.QuestionsAsked);
                 return new Tuple<int, int, int, int, int>(personCount, questionCount, gameCount, 
                     wonCount, askCount);
-            }
-        }
-
-        public bool UpdatePhoto(int personId, string base64String)
-        {
-            using (var context = new PgContext())
-            {
-                var person = context.Persons.Single(x => x.PersonId == personId);
-                if (person.Image != default(string))
-                    return false;
-                person.Image = base64String;
-                context.SaveChanges();
-                return true;
             }
         }
     }

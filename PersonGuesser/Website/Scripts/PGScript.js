@@ -62,7 +62,7 @@ function displayGameScreen(text) {
     var colyes = $('<div class="col-md-4"></div>');
     var byes = $('<div class="btn btn-primary btn-lg btn-block mybutton myyes" onclick="sendYesAnswer()">Tak</div>');
     colyes.append(byes);
-    var coldk = $('<div class="col-md-4"></div>')
+    var coldk = $('<div class="col-md-4" id="coldk"></div>');
     var bdk = $('<div class="btn btn-primary btn-lg btn-block mybutton mydk" onclick="sendDkAnswer()">Nie wiem</div>');
     coldk.append(bdk);
     var colno = $('<div class="col-md-4"></div>');
@@ -191,9 +191,9 @@ function addPerson() {
         return;
     ajaxCall('/GameService.svc/AddPerson', '{"person": "' + data + '", "token": "' + token + '"}',
         function(x) {
-            if (x.d !== data) {
-                alert("Niepoprawne dane osoby!");
-            } else alert("Poprawnie dodano: " + x.d);
+            if (isEmpty(x.d)) {
+                alert("Niepoprawne dane osoby! [\"" + data + "\"]");
+            } else alert("Poprawnie dodano osobę: " + x.d);
             $('#summButton').append('<div class="btn btn-primary btn-lg btn-block mybutton mydk" onclick="sendSummaryDemand()">Podsumowanie</div>');
         });
     appendAddQuestion();
@@ -206,8 +206,8 @@ function addQuestion() {
     var answer = $('#yesRadio').is(':checked') ? 1 : 0;
     ajaxCall('/GameService.svc/AddQuestion', '{"question": "' + data + '", "answer": "' + answer + '", "token": "'+token+'"}',
         function(x) {
-            if (x.d !== data) {
-                alert("Niepoprawna forma pytania (niedopuszczalny pusty string, znaki niealfanumeryczne (wyjątkiem spacja), dwie spacje z rzędu, brak znaku zapytania na końcu)");
+            if (isEmpty(x.d)) {
+                alert("Niepoprawna forma pytania! [\""+data+"\"]");
             } else alert("Poprawnie dodano pytanie: " + x.d);
         });
     removeAdding();
@@ -258,8 +258,10 @@ function handleStep(step) {
         appendAddQuestion();
     } else if (step.d.StepType == 'Question') {
         displayGameScreen(step.d.DisplayText);
-    } else if (step.d.StepType == 'Guessing')
+    } else if (step.d.StepType == 'Guessing') {
         displayGameScreen(step.d.DisplayText);
+        $('#coldk').empty();
+    }
 }
 
 function saveToken(data) {
