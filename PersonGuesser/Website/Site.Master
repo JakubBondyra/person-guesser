@@ -77,7 +77,7 @@
             <hr />
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> - bondyra</p>
-                <strong>wersja alfa. uwaga na dziwne bugi.</strong>
+                <strong>wersja beta.</strong>
             </footer>
         </div>
     </form>
